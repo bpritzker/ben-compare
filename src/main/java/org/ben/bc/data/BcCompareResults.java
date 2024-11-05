@@ -6,10 +6,8 @@ import java.util.Map;
 
 public class BcCompareResults {
 
-    private String collectionName1;
     private Collection<String> collection1;
 
-    private String collectionName2;
     private Collection<String> collection2;
 
 
@@ -31,14 +29,6 @@ public class BcCompareResults {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public String getCollectionName1() {
-        return collectionName1;
-    }
-
-    public void setCollectionName1(String collectionName1) {
-        this.collectionName1 = collectionName1;
-    }
-
     public Collection<String> getCollection1() {
         return collection1;
     }
@@ -47,13 +37,6 @@ public class BcCompareResults {
         this.collection1 = collection1;
     }
 
-    public String getCollectionName2() {
-        return collectionName2;
-    }
-
-    public void setCollectionName2(String collectionName2) {
-        this.collectionName2 = collectionName2;
-    }
 
     public Collection<String> getCollection2() {
         return collection2;

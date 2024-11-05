@@ -8,8 +8,7 @@ import java.util.*;
 
 public class BcComparator {
 
-    private BcCompareConfig config;
-    private Set<String> excludeValues;
+    private final BcCompareConfig config;
 
     public BcComparator(BcCompareConfig config) {
         this.config = config;
@@ -17,11 +16,11 @@ public class BcComparator {
 
 
     public BcCompareResults runCompare(
-            String collectionName1, Collection<String> collection1,
-            String collectionName2, Collection<String> collection2) {
+            Collection<String> collection1,
+             Collection<String> collection2) {
 
-        Map<String, List<String>> normalized1 = normalizeCollection(collectionName1, collection1);
-        Map<String, List<String>> normalized2 = normalizeCollection(collectionName2, collection2);
+        Map<String, List<String>> normalized1 = normalizeCollection(collection1);
+        Map<String, List<String>> normalized2 = normalizeCollection(collection2);
 
         Set<String> matches = new HashSet<>(normalized1.keySet());
         matches.retainAll(normalized2.keySet());
@@ -36,9 +35,7 @@ public class BcComparator {
 
         // Now, set the result object with all values...
         BcCompareResults result = new BcCompareResults();
-        result.setCollectionName1(collectionName1);
         result.setCollection1(collection1);
-        result.setCollectionName2(collectionName2);
         result.setCollection2(collection2);
 
         //
@@ -53,10 +50,11 @@ public class BcComparator {
 
     }
 
-    protected Map<String, List<String>> normalizeCollection(String collectionName, Collection<String> collection) {
+    protected Map<String, List<String>> normalizeCollection(Collection<String> collection) {
 
         Map<String, List<String>> result = new HashMap<>();
         for (String currStartingValue : collection) {
+
             String normalized = normalizeString(currStartingValue);
 
             List<String> mergedValues = result.get(normalized);

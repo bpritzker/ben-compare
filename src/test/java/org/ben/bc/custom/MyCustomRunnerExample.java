@@ -2,6 +2,11 @@ package org.ben.bc.custom;
 
 
 import org.ben.bc.BcMain;
+import org.ben.bc.BcUtils;
+import org.ben.bc.data.conf.BcConfig;
+import org.ben.bc.testutil.BcTestingUtils;
+
+import java.util.List;
 
 /**
  * Put your custom Runners here.....
@@ -9,6 +14,37 @@ import org.ben.bc.BcMain;
  *
  */
 public class MyCustomRunnerExample extends BcMain {
+
+
+
+    public static void main(String[] args) {
+        MyCustomRunnerExample myCustomRunnerExample = new MyCustomRunnerExample();
+        myCustomRunnerExample.run();
+    }
+
+
+
+    private void run() {
+
+        List<String> list1 = BcTestingUtils.getComplexList1();
+        List<String> list2 = BcTestingUtils.getComplexList2();
+
+
+        String reportDir = "C:/Temp/compare/reports";
+        BcConfig config = BcUtils.buildDefaultConfig();
+        config.getCompareConfig().setIgnoreCase(false);
+        config.getReportConfig().setReportDir(reportDir);
+
+        // This is the magic line...
+        run("Family", list1, "Work", list2, config);
+
+        System.out.println("\n\n");
+        BcTestingUtils.printOpenDirLink(reportDir);
+
+
+    }
+
+
 
 
 

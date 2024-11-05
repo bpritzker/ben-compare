@@ -1,6 +1,5 @@
 package org.ben.bc.testutil;
 
-import org.ben.bc.MainManualRunner;
 
 import java.util.logging.Logger;
 
@@ -9,7 +8,7 @@ public class QuickTest {
 
 
 
-    private static Logger logger = Logger.getLogger(MainManualRunner.class.getName());
+    private static final Logger logger = Logger.getLogger(QuickTest.class.getName());
 
 
 

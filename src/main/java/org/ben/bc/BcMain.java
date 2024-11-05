@@ -19,6 +19,14 @@ public class BcMain {
         main.runSimple(collectionName1, collection1, collectionName2, collection2);
     }
 
+    @SuppressWarnings("unused")
+    public static void runStatic(String collectionName1, Collection<String> collection1,
+                                       String collectionName2, Collection<String> collection2,
+                                       BcConfig config) {
+        BcMain main = new BcMain();
+        main.run(collectionName1, collection1, collectionName2, collection2, config);
+    }
+
 
     /**
      * This is the simple method to call the compare utility.
@@ -33,10 +41,31 @@ public class BcMain {
             String collectionName2, Collection<String> collection2) {
 
         BcConfig config = buildConfig();
-        BcCompareResults compareResults = compareResults(collectionName1, collection1, collectionName2, collection2, config.getCompareConfig());
-        reportResults(compareResults, config);
+        run(collectionName1, collection1, collectionName2, collection2, config);
+    }
 
 
+    @SuppressWarnings("unused")
+    public void runCommon(
+            String collectionName1, Collection<String> collection1,
+            String collectionName2, Collection<String> collection2,
+            String reportDir) {
+
+        BcConfig config = buildConfig();
+        config.getReportConfig().setReportDir(reportDir);
+        run(collectionName1, collection1, collectionName2, collection2, config);
+    }
+
+    /**
+     * This method allows you to override the config.
+     */
+    public void run(
+            String collectionName1, Collection<String> collection1,
+            String collectionName2, Collection<String> collection2,
+            BcConfig inConfig) {
+
+        BcCompareResults compareResults = compareResults(collection1, collection2, inConfig.getCompareConfig());
+        reportResults(collectionName1, collectionName2, compareResults, inConfig);
     }
 
 
@@ -48,18 +77,18 @@ public class BcMain {
     }
 
     protected BcCompareResults compareResults(
-            String collectionName1, Collection<String> collection1,
-            String collectionName2, Collection<String> collection2,
+            Collection<String> collection1,
+            Collection<String> collection2,
             BcCompareConfig config) {
         BcComparator comparator = new BcComparator(config);
-        BcCompareResults result = comparator.runCompare(collectionName1, collection1, collectionName2, collection2);
+        BcCompareResults result = comparator.runCompare( collection1,  collection2);
         return result;
     }
 
 
-    protected void reportResults(BcCompareResults compareResults, BcConfig config) {
+    protected void reportResults(String collectionName1, String collectionName2, BcCompareResults compareResults, BcConfig config) {
         BcReporter reporter = new BcReporter(config);
-        reporter.defaultReport(compareResults);
+        reporter.defaultReport(collectionName1, collectionName2, compareResults);
     }
 
 

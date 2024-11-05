@@ -5,7 +5,7 @@
 
   <groupId>org.example</groupId>
   <artifactId>ben-compare</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <name>Ben Compare</name>
   <url>http://maven.apache.org</url>
 

@@ -3,19 +3,33 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <groupId>org.example</groupId>
+  <groupId>net.benpritzker</groupId>
   <artifactId>ben-compare</artifactId>
-  <version>1.0.7</version>
-  <name>Ben Compare</name>
-  <url>http://maven.apache.org</url>
+  <version>1.1.1</version>
+
+
+  <packaging>jar</packaging>
+
+  <name>Bens Comparison Util</name>
+  <description>A pure Java super simple way to compare 2 Collections that by default usually tells you what you want to know.</description>
+  <url>https://github.com/bpritzker/ben-compare</url>
+
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
 
 
   <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.11.3</version>
       <scope>test</scope>
     </dependency>
 
@@ -27,9 +41,19 @@
       <scope>test</scope>
     </dependency>
 
-
-
   </dependencies>
+
+
+
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+
 
 
 </project>

@@ -13,19 +13,25 @@ public class BcMain {
 
 
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////  Below are all the methods to run/start the comparator program.
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     * This is probably the easiest way to get started. Just call this from inside any program
+     */
     public static void runSimpleStatic(String collectionName1, Collection<String> collection1,
                                        String collectionName2, Collection<String> collection2) {
         BcMain main = new BcMain();
         main.runSimple(collectionName1, collection1, collectionName2, collection2);
     }
 
-    @SuppressWarnings("unused")
-    public static void runStatic(String collectionName1, Collection<String> collection1,
-                                       String collectionName2, Collection<String> collection2,
-                                       BcConfig config) {
-        BcMain main = new BcMain();
-        main.run(collectionName1, collection1, collectionName2, collection2, config);
-    }
+
+
+
 
 
     /**
@@ -36,6 +42,16 @@ public class BcMain {
      * @param collectionName2 - This is the display name for Collection 2
      * @param collection2 -
      */
+    @SuppressWarnings("unused")
+    public static void runStatic(String collectionName1, Collection<String> collection1,
+                                       String collectionName2, Collection<String> collection2,
+                                       BcConfig config) {
+        BcMain main = new BcMain();
+        main.run(collectionName1, collection1, collectionName2, collection2, config);
+    }
+
+
+
     public void runSimple(
             String collectionName1, Collection<String> collection1,
             String collectionName2, Collection<String> collection2) {
@@ -71,8 +87,16 @@ public class BcMain {
 
 
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////  Override methods below if you want to customize how the program runs. See Examples.
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     protected BcConfig buildConfig() {
-        BcConfig resultConfig = BcUtils.buildDefaultConfig();
+        BcConfig resultConfig;
+        resultConfig = BcUtils.buildDefaultConfig();
         return resultConfig;
     }
 
@@ -81,14 +105,15 @@ public class BcMain {
             Collection<String> collection2,
             BcCompareConfig config) {
         BcComparator comparator = new BcComparator(config);
-        BcCompareResults result = comparator.runCompare( collection1,  collection2);
+        BcCompareResults result;
+        result = comparator.runCompare( collection1,  collection2);
         return result;
     }
 
 
     protected void reportResults(String collectionName1, String collectionName2, BcCompareResults compareResults, BcConfig config) {
-        BcReporter reporter = new BcReporter(config);
-        reporter.defaultReport(collectionName1, collectionName2, compareResults);
+        BcReporter reporter = new BcReporter(config.getReportConfig());
+        reporter.defaultReport(collectionName1, collectionName2, compareResults, config.getCompareConfig());
     }
 
 

@@ -40,13 +40,6 @@ public class MyCustomRunnerExample extends BcMain {
 
         System.out.println("\n\n");
         BcTestingUtils.printOpenDirLink(reportDir);
-
-
     }
-
-
-
-
-
 
 }

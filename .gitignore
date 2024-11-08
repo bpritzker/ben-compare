@@ -37,3 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Project - This allows me to create files and not check them in ###
+BenTestingDoNotCheckIn.java

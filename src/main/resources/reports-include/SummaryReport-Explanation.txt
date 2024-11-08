@@ -1,0 +1,28 @@
+This document is designed to help explain the results so anyone can use this and understand what they are looking at.
+
+
+
+"Total Items" - This is EVERYTHING passed for comparison. It can include duplicates and blanks.
+
+"Duplicates Removed" - This is total number of duplicate values removed from the total items after you do things like
+make values all Upper Case and remove extra spaces.
+
+"Blanks Removed" - These are the values removed when you pull out anything is blank.
+Blank is defined as anything that is ALL whitespace. (Think empty cells, spaces or returns)
+
+"In BOTH" - These are the values that match! So they are in both List 1 AND List 2
+
+"Total Items in (LIST 1) that are NOT in (LIST 2):" - For ALL values that are in one list but not in the other list!
+
+
+THE FORMULA IS:
+Total Items =  Duplicates Removed+ Blanks Removed + In BOTH + Total Items IN but not in other
+
+
+
+
+
+
+
+
+

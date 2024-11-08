@@ -2,8 +2,27 @@ package org.ben.bc.data.conf;
 
 public class BcCompareConfig {
 
+    // These are the values you most likely want to change.
     private boolean ignoreCase;
-    private boolean trim;
+
+
+
+
+    // I strongly suggest setting this to true.
+    private boolean handleBlanksSeparately = true;
+    private boolean trim = true;
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////// End of Variable Definitions. Below should be mostly getters and setters.
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
     public boolean isIgnoreCase() {
@@ -23,4 +42,11 @@ public class BcCompareConfig {
     }
 
 
+    public boolean isHandleBlanksSeparately() {
+        return handleBlanksSeparately;
+    }
+
+    public void setHandleBlanksSeparately(boolean handleBlanksSeparately) {
+        this.handleBlanksSeparately = handleBlanksSeparately;
+    }
 }

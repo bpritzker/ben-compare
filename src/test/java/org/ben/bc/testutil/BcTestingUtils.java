@@ -33,6 +33,11 @@ public class BcTestingUtils {
         result.add("Lisa");
         result.add("Maggie");
 
+        // Add Blanks, 0 and 3 spaces
+        result.add("");
+        result.add("   ");
+        result.add("   ");
+
         return result;
 
     }
@@ -51,6 +56,11 @@ public class BcTestingUtils {
 
         result.add("Wayland");
         result.add("Burns");
+
+        // Add 0 and 2 blanks, that matches on the 0 but NOT on the 2 with what is in first list
+        result.add("");
+        result.add("  ");
+
         return result;
     }
 
@@ -72,32 +82,33 @@ public class BcTestingUtils {
         }
 
         String sysPropName = System.getProperty("os.name");
-        if (sysPropName.toUpperCase().contains("WIN")) {
 
-            // Handle the case we pass in "/Users/ben/temp/compare/reports"
-            //  For that case we want to have the file start at "C:"
-            String cleanAbsolutePath;
-            if (inAbsolutePath.startsWith("/")) {
-                cleanAbsolutePath = "C:" + inAbsolutePath;
-            } else {
-                cleanAbsolutePath = inAbsolutePath;
-            }
-
-            // For windows... not sure if we need to move this outside for MAC as well....
-            String pathToOpen;
-            File tempFile = new File(cleanAbsolutePath);
-
-            if (tempFile.isDirectory()) {
-                pathToOpen = cleanAbsolutePath;
-            } else {
-                pathToOpen = tempFile.getParentFile().getAbsolutePath();
-            }
-
-
-            System.out.println("Clink Link to open to directory: file:///" + pathToOpen.replace("\\", "/"));
-        } else {
+        if (! sysPropName.toUpperCase().contains("WIN")) {
             logger.warning("DOES NOT SUPPORT MAC OS YET.");
+            return;
         }
+
+        // Handle the case we pass in "/Users/ben/temp/compare/reports"
+        //  For that case we want to have the file start at "C:"
+        String cleanAbsolutePath;
+        if (inAbsolutePath.startsWith("/")) {
+            cleanAbsolutePath = "C:" + inAbsolutePath;
+        } else {
+            cleanAbsolutePath = inAbsolutePath;
+        }
+
+        // For windows... not sure if we need to move this outside for MAC as well....
+        String pathToOpen;
+        File tempFile = new File(cleanAbsolutePath);
+
+        if (tempFile.isDirectory()) {
+            pathToOpen = cleanAbsolutePath;
+        } else {
+            pathToOpen = tempFile.getParentFile().getAbsolutePath();
+        }
+
+        System.out.println("Clink Link to open to directory: file:///" + pathToOpen.replace("\\", "/"));
+
     }
 
 

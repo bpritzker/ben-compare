@@ -1,11 +1,18 @@
 package org.ben.bc.module;
 
+import org.ben.bc.BcUtils;
 import org.ben.bc.data.BcCompareResults;
 import org.ben.bc.data.conf.BcCompareConfig;
 
 import java.util.*;
 
-
+/**
+ * This class is used to take all the data in the 2 Collections and
+ * normalized and do the comparisons.
+ * </br>
+ * NOTE: After a lot of thought I decided to handle null/blanks separately since they are kind of unique.
+ *
+ */
 public class BcComparator {
 
     private final BcCompareConfig config;
@@ -19,8 +26,11 @@ public class BcComparator {
             Collection<String> collection1,
              Collection<String> collection2) {
 
-        Map<String, List<String>> normalized1 = normalizeCollection(collection1);
-        Map<String, List<String>> normalized2 = normalizeCollection(collection2);
+        NormalizedResult normalizedResult1 = normalizeCollection(collection1);
+        NormalizedResult normalizedResult2 = normalizeCollection(collection2);
+
+        Map<String, List<String>> normalized1 = normalizedResult1.getNormalizedValueToOrigValues();
+        Map<String, List<String>> normalized2 = normalizedResult2.getNormalizedValueToOrigValues();
 
         Set<String> matches = new HashSet<>(normalized1.keySet());
         matches.retainAll(normalized2.keySet());
@@ -38,7 +48,7 @@ public class BcComparator {
         result.setCollection1(collection1);
         result.setCollection2(collection2);
 
-        //
+        // set all the actual diff stuff
         result.setInBoth(matches);
         result.setInC1NotInC2(in1NotIn2);
         result.setInC2NotInC1(in2NotIn1);
@@ -46,24 +56,42 @@ public class BcComparator {
         result.setNormalized1(normalized1);
         result.setNormalized2(normalized2);
 
+        result.setBlankValueToCount1(normalizedResult1.getBlankValueToCount());
+        result.setBlankValueToCount2(normalizedResult2.getBlankValueToCount());
+
         return result;
 
     }
 
-    protected Map<String, List<String>> normalizeCollection(Collection<String> collection) {
+    protected NormalizedResult normalizeCollection(Collection<String> collection) {
 
-        Map<String, List<String>> result = new HashMap<>();
+        Map<String, List<String>> normalizedValueToOrigValues = new HashMap<>();
+        Map<String, Integer> blankToCount = new HashMap<>();
         for (String currStartingValue : collection) {
 
-            String normalized = normalizeString(currStartingValue);
+            // Handle blanks separately!
+            if (config.isHandleBlanksSeparately() && BcUtils.isBlank(currStartingValue)) {
+                Integer tempCount = blankToCount.get(currStartingValue);
+                if (tempCount == null) {
+                    tempCount = 0;
+                }
+                tempCount++;
+                blankToCount.put(currStartingValue, tempCount);
+            } else {  // else, non blank so normalize
+                String normalized = normalizeString(currStartingValue);
 
-            List<String> mergedValues = result.get(normalized);
-            if (mergedValues == null) {
-                mergedValues = new ArrayList<>();
+                List<String> mergedValues = normalizedValueToOrigValues.get(normalized);
+                if (mergedValues == null) {
+                    mergedValues = new ArrayList<>();
+                }
+                mergedValues.add(currStartingValue);
+                normalizedValueToOrigValues.put(normalized, mergedValues);
             }
-            mergedValues.add(currStartingValue);
-            result.put(normalized, mergedValues);
         }
+
+        NormalizedResult result = new NormalizedResult();
+        result.setNormalizedValueToOrigValues(normalizedValueToOrigValues);
+        result.setBlankValueToCount(blankToCount);
         return result;
     }
 
@@ -80,6 +108,28 @@ public class BcComparator {
         }
 
         return result;
+    }
+
+
+    protected static class NormalizedResult {
+        private Map<String, List<String>> normalizedValueToOrigValues;
+        private Map<String, Integer> blankValueToCount;
+
+        public Map<String, List<String>> getNormalizedValueToOrigValues() {
+            return normalizedValueToOrigValues;
+        }
+
+        public void setNormalizedValueToOrigValues(Map<String, List<String>> normalizedValueToOrigValues) {
+            this.normalizedValueToOrigValues = normalizedValueToOrigValues;
+        }
+
+        public Map<String, Integer> getBlankValueToCount() {
+            return blankValueToCount;
+        }
+
+        public void setBlankValueToCount(Map<String, Integer> blankValueToCount) {
+            this.blankValueToCount = blankValueToCount;
+        }
     }
 
 

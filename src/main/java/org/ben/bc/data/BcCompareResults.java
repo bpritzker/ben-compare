@@ -14,11 +14,12 @@ public class BcCompareResults {
     private Map<String, List<String>> normalized1;
     private Map<String, List<String>> normalized2;
 
+    private Map<String, Integer> blankValueToCount1;
+    private Map<String, Integer> blankValueToCount2;
+
     private Collection<String> inC1NotInC2;
     private Collection<String> inC2NotInC1;
     private Collection<String> inBoth;
-
-
 
 
 
@@ -60,6 +61,23 @@ public class BcCompareResults {
 
     public void setNormalized2(Map<String, List<String>> normalized2) {
         this.normalized2 = normalized2;
+    }
+
+
+    public Map<String, Integer> getBlankValueToCount1() {
+        return blankValueToCount1;
+    }
+
+    public void setBlankValueToCount1(Map<String, Integer> blankValueToCount1) {
+        this.blankValueToCount1 = blankValueToCount1;
+    }
+
+    public Map<String, Integer> getBlankValueToCount2() {
+        return blankValueToCount2;
+    }
+
+    public void setBlankValueToCount2(Map<String, Integer> blankValueToCount2) {
+        this.blankValueToCount2 = blankValueToCount2;
     }
 
     public Collection<String> getInC1NotInC2() {

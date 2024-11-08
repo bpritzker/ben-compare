@@ -11,6 +11,7 @@ import java.util.Collection;
  *
  */
 @Deprecated
+@SuppressWarnings("all") // This is deprecated so we don't care.
 public class BcInputData {
 
 

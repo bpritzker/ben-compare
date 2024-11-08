@@ -1,4 +1,4 @@
-package org.ben.bc.runners;
+package org.ben.bc.examples;
 
 import org.ben.bc.BcMain;
 
@@ -43,7 +43,6 @@ public class BcRunFrom2Files extends BcMain {
 
 
     protected Collection<String> loadCollectionFromFile(String absolutePathFile) throws IOException {
-
         Path path = Paths.get(absolutePathFile);
         Collection<String> result = Files.readAllLines(path);
         return result;

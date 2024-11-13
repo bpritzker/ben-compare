@@ -31,6 +31,14 @@ public class BcUtils {
         return resultConfig;
     }
 
+    public static String defaultNotEmptyValue(String inString, String defaultValue) {
+        if (BcUtils.isBlank(inString)) {
+            return defaultValue;
+        }
+
+        return inString;
+    }
+
 
     public static void writeToFile(Collection<String> collection, File outputFile) {
 

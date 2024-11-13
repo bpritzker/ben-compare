@@ -1,7 +1,7 @@
 package org.ben.bc.module.report;
 
 import org.ben.bc.BcUtils;
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BcDetailsReports {
 
-    public void runDetailReports(String collectionName1, String collectionName2, BcCompareResults compareResults, String reportDirStr) {
+    public void runDetailReports(String collectionName1, String collectionName2, BcCompareResult compareResults, String reportDirStr) {
 
 
         File reportDetailsDir = new File(reportDirStr + "/details/");

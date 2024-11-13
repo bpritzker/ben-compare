@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class BcCompareResults {
+public class BcCompareResult {
 
     private Collection<String> collection1;
 

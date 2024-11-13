@@ -1,11 +1,12 @@
 package org.ben.bc;
 
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.module.BcComparator;
 import org.ben.bc.module.BcReporter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -23,14 +24,27 @@ public class BcMain {
     /**
      * This is probably the easiest way to get started. Just call this from inside any program
      */
-    public static void runSimpleStatic(String collectionName1, Collection<String> collection1,
-                                       String collectionName2, Collection<String> collection2) {
+    public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
+                                             String collectionName2, Collection<String> collection2) {
         BcMain main = new BcMain();
-        main.runSimple(collectionName1, collection1, collectionName2, collection2);
+        // TODO: Get Default Directory
+        return main.runCompareMain(collectionName1, collection1, collectionName2, collection2, null);
     }
 
 
 
+    /**
+     * This is what I think I would use most of the time.
+     * It sets all the default compare setting but also creates the reports.
+     *
+     */
+    @SuppressWarnings("unused")
+    public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
+                                  String collectionName2, Collection<String> collection2,
+                                  String reportDir) {
+        BcMain main = new BcMain();
+        return main.runCompareMain(collectionName1, collection1, collectionName2, collection2, reportDir);
+    }
 
 
 
@@ -43,45 +57,62 @@ public class BcMain {
      * @param collection2 -
      */
     @SuppressWarnings("unused")
-    public static void runStatic(String collectionName1, Collection<String> collection1,
+    public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
                                        String collectionName2, Collection<String> collection2,
                                        BcConfig config) {
         BcMain main = new BcMain();
-        main.run(collectionName1, collection1, collectionName2, collection2, config);
+        return main.run(collectionName1, collection1, collectionName2, collection2, config);
     }
 
 
 
-    public void runSimple(
+
+
+    public BcCompareResult runCompareSimple(
             String collectionName1, Collection<String> collection1,
             String collectionName2, Collection<String> collection2) {
 
         BcConfig config = buildConfig();
-        run(collectionName1, collection1, collectionName2, collection2, config);
+        return run(collectionName1, collection1, collectionName2, collection2, config);
     }
 
 
     @SuppressWarnings("unused")
-    public void runCommon(
+    public BcCompareResult runCompareMain(
             String collectionName1, Collection<String> collection1,
             String collectionName2, Collection<String> collection2,
             String reportDir) {
 
         BcConfig config = buildConfig();
         config.getReportConfig().setReportDir(reportDir);
-        run(collectionName1, collection1, collectionName2, collection2, config);
+        return run(collectionName1, collection1, collectionName2, collection2, config);
     }
 
     /**
-     * This method allows you to override the config.
+     * This method should be the final one to be called. It checks the data to make sure it's valid.
      */
-    public void run(
+    public BcCompareResult run(
             String collectionName1, Collection<String> collection1,
             String collectionName2, Collection<String> collection2,
             BcConfig inConfig) {
 
-        BcCompareResults compareResults = compareResults(collection1, collection2, inConfig.getCompareConfig());
-        reportResults(collectionName1, collectionName2, compareResults, inConfig);
+        String cleanCollectionName1 = BcUtils.defaultNotEmptyValue(collectionName1, "List 1");
+        String cleanCollectionName2 = BcUtils.defaultNotEmptyValue(collectionName2, "List 2");
+
+        // The program does allow null and empty. No reason to error when we can just generate the reports.
+        Collection<String> cleanCollection1 = collection1;
+        if (collection1 == null) {
+            cleanCollection1 = new ArrayList<>();
+        }
+
+        Collection<String> cleanCollection2 = collection2;
+        if (collection2 == null) {
+            cleanCollection2 = new ArrayList<>();
+        }
+
+        BcCompareResult compareResults = compareResults(cleanCollection1, cleanCollection2, inConfig.getCompareConfig());
+        reportResults(cleanCollectionName1, cleanCollectionName2, compareResults, inConfig);
+        return compareResults;
     }
 
 
@@ -100,18 +131,18 @@ public class BcMain {
         return resultConfig;
     }
 
-    protected BcCompareResults compareResults(
+    protected BcCompareResult compareResults(
             Collection<String> collection1,
             Collection<String> collection2,
             BcCompareConfig config) {
         BcComparator comparator = new BcComparator(config);
-        BcCompareResults result;
+        BcCompareResult result;
         result = comparator.runCompare( collection1,  collection2);
         return result;
     }
 
 
-    protected void reportResults(String collectionName1, String collectionName2, BcCompareResults compareResults, BcConfig config) {
+    protected void reportResults(String collectionName1, String collectionName2, BcCompareResult compareResults, BcConfig config) {
         BcReporter reporter = new BcReporter(config.getReportConfig());
         reporter.defaultReport(collectionName1, collectionName2, compareResults, config.getCompareConfig());
     }

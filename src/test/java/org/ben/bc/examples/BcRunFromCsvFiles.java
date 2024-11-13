@@ -59,10 +59,13 @@ public class BcRunFromCsvFiles extends BcMain {
 
         // REQUIRED.....
         String COLLECTION_NAME_1 = "";
-        runSimple(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
+        runCompare(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
     }
 
 
+    /**
+     * I know this is duplicate code. I'm not sure how I want to handle the duplicate code yet...
+     */
 
     protected Collection<String> loadCollectionFromCsvFile(String absolutePathFile, int columnToLoad) throws IOException, CsvValidationException {
 

@@ -1,7 +1,7 @@
 package org.ben.bc.module;
 
 import org.ben.bc.BcUtils;
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcReportConfig;
 import org.ben.bc.module.report.BcDetailsReports;
@@ -25,27 +25,26 @@ public class BcReporter {
     }
 
 
-    public void defaultReport(String collectionName1, String collectionName2, BcCompareResults compareResults, BcCompareConfig compareConfig) {
+    public void defaultReport(String collectionName1, String collectionName2, BcCompareResult compareResults, BcCompareConfig compareConfig) {
 
         List<String> reportData = buildReportData(collectionName1, collectionName2, compareResults, compareConfig);
-
         String reportDirStr = reportConfig.getReportDir();
+
+        printToConsoleReportData(reportData);
+
         if (reportDirStr == null) {
             logger.fine("File Reporting is disabled. To enable, set the ReportDirStr on the Report Config.");
         } else {
             toFile(reportData, reportDirStr);
             BcDetailsReports detailsReports = new BcDetailsReports();
             detailsReports.runDetailReports(collectionName1, collectionName2, compareResults, reportDirStr);
-        }
+            System.out.println("\n   *** The Report files are located at: <" + reportDirStr + ">   ***");
 
-        printToConsoleReportData(reportData);
+        }
 
     }
 
     private void toFile(List<String> reportData, String reportDirStr) {
-
-
-
 
         // If here, we want to create the File reports.
         BcUtils.mkDirs(new File(reportDirStr));
@@ -64,7 +63,7 @@ public class BcReporter {
 
     }
 
-    protected List<String> buildReportData(String collectionName1, String collectionName2, BcCompareResults compareResults, BcCompareConfig compareConfig) {
+    protected List<String> buildReportData(String collectionName1, String collectionName2, BcCompareResult compareResults, BcCompareConfig compareConfig) {
 
         BcSummaryReport summaryReport = new BcSummaryReport(reportConfig);
 
@@ -102,7 +101,6 @@ public class BcReporter {
         System.out.println(lineSeparator());
         System.out.println(lineSeparator());
         System.out.println(lineSeparator());
-
 
     }
 

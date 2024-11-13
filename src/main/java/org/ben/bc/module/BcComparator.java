@@ -1,7 +1,7 @@
 package org.ben.bc.module;
 
 import org.ben.bc.BcUtils;
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 
 import java.util.*;
@@ -22,7 +22,7 @@ public class BcComparator {
     }
 
 
-    public BcCompareResults runCompare(
+    public BcCompareResult runCompare(
             Collection<String> collection1,
              Collection<String> collection2) {
 
@@ -44,7 +44,7 @@ public class BcComparator {
 
 
         // Now, set the result object with all values...
-        BcCompareResults result = new BcCompareResults();
+        BcCompareResult result = new BcCompareResult();
         result.setCollection1(collection1);
         result.setCollection2(collection2);
 

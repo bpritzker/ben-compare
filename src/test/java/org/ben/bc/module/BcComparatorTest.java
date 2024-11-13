@@ -1,7 +1,7 @@
 package org.ben.bc.module;
 
 import org.ben.bc.BcUtils;
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.testutil.BcTestingUtils;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class BcComparatorTest {
         Set<String> set1 = new HashSet<>(Arrays.asList("Homer", "Bart", "Lisa"));
         Set<String> set2 = new HashSet<>(Arrays.asList("Homer", "Wayland"));
 
-        BcCompareResults actual = comparator.runCompare(set1, set2);
+        BcCompareResult actual = comparator.runCompare(set1, set2);
         Set<String> expected;
 
         assertEquals(set1, actual.getCollection1());
@@ -60,7 +60,7 @@ class BcComparatorTest {
         List<String> set1 = BcTestingUtils.getComplexList1();
         List<String> set2 = BcTestingUtils.getComplexList2();
 
-        BcCompareResults actual = comparator.runCompare(set1, set2);
+        BcCompareResult actual = comparator.runCompare(set1, set2);
         Set<String> expected;
 
         assertEquals(set1, actual.getCollection1());

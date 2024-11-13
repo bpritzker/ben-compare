@@ -30,35 +30,41 @@ is no actual length enforced.
 * Let the program handle blanks separately. (The default setting)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br>
 <br><br><br><br><br><br>
 <b>TODO:</b>
-* Include the location of the file reports in the console report.
-* Include sample reports as examples to explain how it works.
-* Convert the input values to an object. (DO NOT REQUIRE THAT TO RUN, JUST INTERNALLY)
-* Handle nulls for input values (names and sets)
 * Add recommended length to Input List Names.
 * https://opensource.stackexchange.com/questions/4710/how-to-publish-my-open-source-library-to-maven
 * When the program starts... if using reports, check to see if any of the existing reports are open in Excel (aka: locked)
 * Add example on how to compare 2 columns in an Excel File.
-* Add "dual" modes. That would do the compare WITH and WITH some options like trim. So, you would get 2 sets of reports. I could call it "insight"
-* I can put "Enhanced" reports that use CSV in the test code???? That way, I can use a CSV Parser but also keep the main code pure java.
-* 
+* Add "dual" modes. That would do the compare WITH and WITHOUT some options like trim at the same time. So, you would get 2 sets of reports. I could call it "insight"
 
 
 
 <br>
 Compare:<br>
 * Exclude List
-* Might want to change variable names to indicate what they do... put "normalize" as part of trim and ignore case
 
 
 <br>
 <br>
 Report:<br>
 * Include BOM in reports. Might want to make this configurable.
-* FINISH ALL the File reports! (Each Collection should have it's own File.
-* Might want to zip up the final reports Dir.
-* Values changed by Normalization
 * For CSV reports... return a report as a List&lt;List&lt;String&gt;&gt; instead of writing to file, so I do all the heavy lifting of report generation but not include a dependency.
 
 

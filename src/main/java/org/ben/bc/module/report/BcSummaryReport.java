@@ -1,7 +1,7 @@
 package org.ben.bc.module.report;
 
 
-import org.ben.bc.data.BcCompareResults;
+import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcReportConfig;
 
@@ -26,7 +26,7 @@ public class BcSummaryReport {
     }
 
 
-    public List<String> buildSummaryReport(String collectionName1, String collectionName2, BcCompareResults compareResults, BcCompareConfig compareConfig) {
+    public List<String> buildSummaryReport(String collectionName1, String collectionName2, BcCompareResult compareResults, BcCompareConfig compareConfig) {
 
         // This will be the list of all lines we want to return to report on
 
@@ -39,7 +39,7 @@ public class BcSummaryReport {
 
 
 
-    private List<String> buildBasicCompareInfo(String name1, String name2, BcCompareResults compareResults) {
+    private List<String> buildBasicCompareInfo(String name1, String name2, BcCompareResult compareResults) {
         List<String> result = new ArrayList<>();
         result.add("Comparison Results...");
 

@@ -37,7 +37,7 @@ public class BcRunFrom2Files extends BcMain {
         Collection<String> collection1 = loadCollectionFromFile(ABSOLUTE_PATH_FILE_1);
         Collection<String> collection2 = loadCollectionFromFile(ABSOLUTE_PATH_FILE_2);
 
-        runSimple(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
+        BcMain.runCompare(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
     }
 
 

@@ -5,7 +5,7 @@
 
   <groupId>net.benpritzker</groupId>
   <artifactId>ben-compare</artifactId>
-  <version>1.1.3</version>
+  <version>1.1.4</version>
 
 
   <packaging>jar</packaging>
@@ -33,13 +33,43 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
     <dependency>
-      <groupId>com.opencsv</groupId>
-      <artifactId>opencsv</artifactId>
-      <version>5.9</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.12.0</version>
       <scope>test</scope>
     </dependency>
+
+
+
+
+
+
+    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
+    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
+    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
+    <!-- This is a good place to copy your dependencies so you can easily merge them when a new version comes out. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--  END - YOUR DEPENDENCIES -->
+    <!--  END - YOUR DEPENDENCIES -->
+    <!--  END - YOUR DEPENDENCIES -->
+
+
+
 
   </dependencies>
 

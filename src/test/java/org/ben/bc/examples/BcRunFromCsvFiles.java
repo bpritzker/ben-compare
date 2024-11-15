@@ -1,17 +1,12 @@
 package org.ben.bc.examples;
 
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvValidationException;
 import org.ben.bc.BcMain;
 import org.ben.bc.BcUtils;
 import org.ben.bc.data.conf.BcConfig;
+import org.ben.bc.testutil.BcTestingFileUtils;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -47,39 +42,23 @@ public class BcRunFromCsvFiles extends BcMain {
         BcRunFromCsvFiles runFromCsvFiles = new BcRunFromCsvFiles();
         try {
             runFromCsvFiles.run();
-        } catch (IOException | CsvValidationException e) {
+        } catch (Exception e) {
             logger.severe(e.getMessage());
         }
     }
 
-    private void run() throws IOException, CsvValidationException {
+    private void run() throws Exception {
 
-        Collection<String> collection1 = loadCollectionFromCsvFile(ABSOLUTE_PATH_FILE_1, COLUMN_1);
-        Collection<String> collection2 = loadCollectionFromCsvFile(ABSOLUTE_PATH_FILE_2, COLUMN_2);
+        List<String> list1 = BcTestingFileUtils.loadListFromCsvFile(ABSOLUTE_PATH_FILE_1, COLUMN_1);
+        List<String> list2 = BcTestingFileUtils.loadListFromCsvFile(ABSOLUTE_PATH_FILE_2, COLUMN_2);
 
         // REQUIRED.....
         String COLLECTION_NAME_1 = "";
-        runCompare(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
+        runCompare(COLLECTION_NAME_1, list1, COLLECTION_NAME_2, list2);
     }
 
 
-    /**
-     * I know this is duplicate code. I'm not sure how I want to handle the duplicate code yet...
-     */
 
-    protected Collection<String> loadCollectionFromCsvFile(String absolutePathFile, int columnToLoad) throws IOException, CsvValidationException {
-
-        try (CSVReader reader = new CSVReaderBuilder(new FileReader(absolutePathFile)).build()) {
-            Collection<String> result = new ArrayList<>();
-            String [] nextLine;
-            while ((nextLine = reader.readNext()) != null) {
-                if (keepFilter(nextLine)) {
-                    result.add(nextLine[columnToLoad]);
-                }
-            }
-            return result;
-        }
-    }
 
 
     /**

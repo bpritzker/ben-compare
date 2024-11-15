@@ -69,8 +69,10 @@ public class BcComparator {
         Map<String, Integer> blankToCount = new HashMap<>();
         for (String currStartingValue : collection) {
 
+            String normalizedString = normalizeValue(currStartingValue, config);
+
             // Handle blanks separately!
-            if (config.isHandleBlanksSeparately() && BcUtils.isBlank(currStartingValue)) {
+            if (normalizedString == null) {
                 Integer tempCount = blankToCount.get(currStartingValue);
                 if (tempCount == null) {
                     tempCount = 0;
@@ -78,14 +80,14 @@ public class BcComparator {
                 tempCount++;
                 blankToCount.put(currStartingValue, tempCount);
             } else {  // else, non blank so normalize
-                String normalized = normalizeString(currStartingValue);
+//                String normalized = normalizeString(currStartingValue);
 
-                List<String> mergedValues = normalizedValueToOrigValues.get(normalized);
+                List<String> mergedValues = normalizedValueToOrigValues.get(normalizedString);
                 if (mergedValues == null) {
                     mergedValues = new ArrayList<>();
                 }
                 mergedValues.add(currStartingValue);
-                normalizedValueToOrigValues.put(normalized, mergedValues);
+                normalizedValueToOrigValues.put(normalizedString, mergedValues);
             }
         }
 
@@ -95,20 +97,57 @@ public class BcComparator {
         return result;
     }
 
-    protected String normalizeString(String staringValue) {
 
-        String result = staringValue;
 
-        if (config.isIgnoreCase()) {
+
+
+
+
+
+
+
+    public String normalizeValue(String inValue, BcCompareConfig compareConfig) {
+
+        // If we want to handle blanks separately and it's blank, then the normalized value will be 'null'
+        if (compareConfig.isHandleBlanksSeparately() && BcUtils.isBlank(inValue)) {
+            return null;
+        }
+
+
+        // Not a handled blank
+        String result = inValue;
+
+        if (compareConfig.isIgnoreCase()) {
             result = result.toUpperCase(Locale.ROOT);
         }
 
-        if (config.isTrim()) {
+        if (compareConfig.isTrim()) {
             result = result.trim();
         }
 
         return result;
     }
+
+
+
+
+
+
+
+//    protected String normalizeString(String staringValue) {
+//
+//        String result = staringValue;
+//
+//        if (config.isIgnoreCase()) {
+//            result = result.toUpperCase(Locale.ROOT);
+//        }
+//
+//        if (config.isTrim()) {
+//            result = result.trim();
+//        }
+//
+//        return result;
+//    }
 
 
     protected static class NormalizedResult {

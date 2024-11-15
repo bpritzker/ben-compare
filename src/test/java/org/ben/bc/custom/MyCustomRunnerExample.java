@@ -36,7 +36,7 @@ public class MyCustomRunnerExample extends BcMain {
         config.getReportConfig().setReportDir(reportDir);
 
         // This is the magic line...
-        run("Family", list1, "Work", list2, config);
+        run("List 1", list1, "List 2", list2, config);
 
         System.out.println("\n\n");
         BcTestingUtils.printOpenDirLink(reportDir);

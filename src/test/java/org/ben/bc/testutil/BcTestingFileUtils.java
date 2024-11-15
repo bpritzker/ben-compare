@@ -1,8 +1,12 @@
 package org.ben.bc.testutil;
 
-import org.ben.bc.module.BcReporter;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -88,6 +92,51 @@ public class BcTestingFileUtils {
             fis.close();
         }
     }
+
+
+
+
+    public static List<List<String>> loadDataFromCsvFile(File fileToLoad) throws IOException {
+
+        try (Reader reader = new FileReader(fileToLoad);
+             CSVParser parser = new CSVParser(reader, CSVFormat.DEFAULT)) {
+
+
+            List<List<String>> resultRecords = new ArrayList<>();
+
+            for (CSVRecord record : parser) {
+                List<String> row = new ArrayList<>();
+                for (String value : record) {
+                    row.add(value);
+                }
+                resultRecords.add(row);
+            }
+            return resultRecords;
+        }
+    }
+
+
+
+
+    public static List<String> loadListFromCsvFile(String absolutePathFile, int columnToLoad) throws Exception {
+
+        List<List<String>> fileData = BcTestingFileUtils.loadDataFromCsvFile(new File(absolutePathFile));
+        List<String> result = new ArrayList<>();
+        for (List<String> currLine : fileData) {
+            result.add(currLine.get(columnToLoad));
+        }
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -53,7 +53,8 @@ is no actual length enforced.
 * When the program starts... if using reports, check to see if any of the existing reports are open in Excel (aka: locked)
 * Add example on how to compare 2 columns in an Excel File.
 * Add "dual" modes. That would do the compare WITH and WITHOUT some options like trim at the same time. So, you would get 2 sets of reports. I could call it "insight"
-
+* Move the Input files to a holding dir after the compare so it's ready for the next one.
+* Call it an "Equivalency" values files for manually matching things.
 
 
 <br>

@@ -2,7 +2,6 @@ package org.ben.bc.custom;
 
 
 import org.ben.bc.BcMain;
-import org.ben.bc.BcUtils;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.testutil.BcTestingUtils;
 
@@ -31,7 +30,7 @@ public class MyCustomRunnerExample extends BcMain {
 
 
         String reportDir = "C:/Temp/compare/reports";
-        BcConfig config = BcUtils.buildDefaultConfig();
+        BcConfig config = BcConfig.buildDefaultConfig();
         config.getCompareConfig().setIgnoreCase(false);
         config.getReportConfig().setReportDir(reportDir);
 

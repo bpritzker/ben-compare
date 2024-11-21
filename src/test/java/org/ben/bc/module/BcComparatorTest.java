@@ -1,8 +1,8 @@
 package org.ben.bc.module;
 
-import org.ben.bc.BcUtils;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
+import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.testutil.BcTestingUtils;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class BcComparatorTest {
     @Test
     public void runCompareTest() {
 
-        BcCompareConfig config = BcUtils.buildDefaultConfig().getCompareConfig();
+        BcCompareConfig config = BcConfig.buildDefaultConfig().getCompareConfig();
         BcComparator comparator = new BcComparator(config);
         Set<String> set1 = new HashSet<>(Arrays.asList("Homer", "Bart", "Lisa"));
         Set<String> set2 = new HashSet<>(Arrays.asList("Homer", "Wayland"));
@@ -55,7 +55,7 @@ class BcComparatorTest {
     @Test
     public void runCompareComplexTest() {
 
-        BcCompareConfig config = BcUtils.buildDefaultConfig().getCompareConfig();
+        BcCompareConfig config = BcConfig.buildDefaultConfig().getCompareConfig();
         BcComparator comparator = new BcComparator(config);
         List<String> set1 = BcTestingUtils.getComplexList1();
         List<String> set2 = BcTestingUtils.getComplexList2();

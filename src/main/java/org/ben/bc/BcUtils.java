@@ -1,9 +1,5 @@
 package org.ben.bc;
 
-import org.ben.bc.data.conf.BcCompareConfig;
-import org.ben.bc.data.conf.BcConfig;
-import org.ben.bc.data.conf.BcReportConfig;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,21 +11,7 @@ public class BcUtils {
     private static final Logger logger = Logger.getLogger(BcUtils.class.getName());
 
 
-    public static BcConfig buildDefaultConfig() {
 
-        BcConfig resultConfig = new BcConfig();
-
-        BcCompareConfig compareConfig = new BcCompareConfig();
-        compareConfig.setIgnoreCase(true);
-        compareConfig.setTrim(true);
-        resultConfig.setCompareConfig(compareConfig);
-
-        BcReportConfig reportConfig = new BcReportConfig();
-        reportConfig.setReportDir(null);
-        resultConfig.setReportConfig(reportConfig);
-
-        return resultConfig;
-    }
 
     public static String defaultNotEmptyValue(String inString, String defaultValue) {
         if (BcUtils.isBlank(inString)) {
@@ -102,19 +84,16 @@ public class BcUtils {
             return true;
         }
 
-
         int strLen = cs.length();
-        if (strLen == 0) {
-            return true;
-        } else {
-            for(int i = 0; i < strLen; ++i) {
+        if (strLen != 0) {
+            for (int i = 0; i < strLen; ++i) {
                 if (!Character.isWhitespace(cs.charAt(i))) {
                     return false;
                 }
             }
 
-            return true;
         }
+        return true;
     }
 
 

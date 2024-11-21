@@ -21,4 +21,23 @@ public class BcConfig {
     public void setReportConfig(BcReportConfig reportConfig) {
         this.reportConfig = reportConfig;
     }
+
+
+    public static BcConfig buildDefaultConfig() {
+
+        BcConfig resultConfig = new BcConfig();
+
+        BcCompareConfig compareConfig = new BcCompareConfig();
+        compareConfig.setIgnoreCase(true);
+        compareConfig.setTrim(true);
+        resultConfig.setCompareConfig(compareConfig);
+
+        BcReportConfig reportConfig = new BcReportConfig();
+        reportConfig.setReportDir(null);
+        resultConfig.setReportConfig(reportConfig);
+
+        return resultConfig;
+    }
+
+
 }

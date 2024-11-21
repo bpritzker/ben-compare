@@ -23,10 +23,13 @@ public class QuickTest {
     }
 
     private static void runLoggingTest() {
+        System.out.println("Staring logs...");
         logger.severe("severe");
         logger.warning("warning");
         logger.info("info");
         logger.fine("fine");
+        logger.finer("finer");
+        System.out.println("End Logs");
     }
 
 

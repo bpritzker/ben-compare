@@ -130,26 +130,6 @@ public class BcComparator {
 
 
 
-
-
-
-
-//    protected String normalizeString(String staringValue) {
-//
-//        String result = staringValue;
-//
-//        if (config.isIgnoreCase()) {
-//            result = result.toUpperCase(Locale.ROOT);
-//        }
-//
-//        if (config.isTrim()) {
-//            result = result.trim();
-//        }
-//
-//        return result;
-//    }
-
-
     protected static class NormalizedResult {
         private Map<String, List<String>> normalizedValueToOrigValues;
         private Map<String, Integer> blankValueToCount;

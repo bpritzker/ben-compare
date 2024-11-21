@@ -2,7 +2,6 @@ package org.ben.bc.examples;
 
 
 import org.ben.bc.BcMain;
-import org.ben.bc.BcUtils;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.testutil.BcTestingFileUtils;
 
@@ -79,7 +78,7 @@ public class BcRunFromCsvFiles extends BcMain {
 
     @Override
     protected BcConfig buildConfig() {
-        BcConfig resultConfig = BcUtils.buildDefaultConfig();
+        BcConfig resultConfig = BcConfig.buildDefaultConfig();
         resultConfig.getCompareConfig().setIgnoreCase(IGNORE_CASE);
         resultConfig.getCompareConfig().setTrim(TRIM);
         return resultConfig;

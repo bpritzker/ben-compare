@@ -17,7 +17,6 @@ public class BcTestingFileUtils {
 
     /**
      *
-     * @param directoryToZip
      * @param inZipFile - You can pass in the file you want to create OR pass in null and it will create a zip file with the directory name.
      */
     public static void zipDirectory(File directoryToZip, File inZipFile) throws Exception {

@@ -127,7 +127,7 @@ public class BcMain {
 
     protected BcConfig buildConfig() {
         BcConfig resultConfig;
-        resultConfig = BcUtils.buildDefaultConfig();
+        resultConfig = BcConfig.buildDefaultConfig();
         return resultConfig;
     }
 

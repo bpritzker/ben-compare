@@ -33,9 +33,18 @@ public class BcRunCsvMatchAndMerge {
     private static final String WORKING_DIR = "C:/Temp/Comparator";
 
 
+
+
+
     // OPTIONAL...
     private static final boolean IGNORE_CASE = true;
-    private static final boolean TOP_ROW_ARE_HEADERS = true;
+    private static final boolean TOP_ROW_ARE_HEADERS = false;
+
+    // OPTIONAL DISPLAY
+    private static final boolean DISPLAY_VALUES_BOTH = false;
+    private static final boolean DISPLAY_DIFF_VALUES_1 = false;
+    private static final boolean DISPLAY_DIFF_VALUES_2 = false;
+
 
 
     private static final Logger logger = Logger.getLogger(BcRunCsvMatchAndMerge.class.getName());
@@ -69,9 +78,13 @@ public class BcRunCsvMatchAndMerge {
         Collection<String> collection1 = getColumnData(data1, FILE_COLUMN_INDEX_ZERO_BASED_1);
         Collection<String> collection2 = getColumnData(data2, FILE_COLUMN_INDEX_ZERO_BASED_2);
 
-        BcConfig config = BcUtils.buildDefaultConfig();
+        BcConfig config = BcConfig.buildDefaultConfig();
         config.getCompareConfig().setIgnoreCase(IGNORE_CASE);
         config.getReportConfig().setReportDir(WORKING_DIR + "/reports");
+        config.getReportConfig().setDisplayValuesForBoth(DISPLAY_VALUES_BOTH);
+        config.getReportConfig().setDisplayValuesForDiff1(DISPLAY_DIFF_VALUES_1);
+        config.getReportConfig().setDisplayValuesForDiff2(DISPLAY_DIFF_VALUES_2);
+
         BcCompareResult compareResult = BcMain.runCompare(
                 BcUtils.cleanFileName(file1.getName()), collection1,
                 BcUtils.cleanFileName(file2.getName()), collection2,
@@ -84,6 +97,7 @@ public class BcRunCsvMatchAndMerge {
 
     }
 
+    @SuppressWarnings("All")
     private void createMergeFile(BcCompareResult compareResult, List<List<String>> data1, List<List<String>> data2, int fileColumnIndexZeroBased1, int fileColumnIndexZeroBased2, String workingDir, BcConfig config) throws Exception {
 
 
@@ -106,7 +120,6 @@ public class BcRunCsvMatchAndMerge {
             List<String> matchResult = new ArrayList<>();
             matchResult.add(currMatchValue);
             matchResult.add(matchValue);
-            // FIXME: Add All items in list???
             matchResult.addAll(matchValues1.get(0));
             matchResult.addAll(matchValues2.get(0));
             reportData.add(matchResult);
@@ -118,7 +131,6 @@ public class BcRunCsvMatchAndMerge {
     }
 
     private void createCsvFile(List<List<String>> csvData, File file) throws Exception {
-
 
         CSVPrinter csvFilePrinter;
         CSVFormat csvFileFormat = CSVFormat.EXCEL;
@@ -166,7 +178,7 @@ public class BcRunCsvMatchAndMerge {
 
             // Skip first row
 
-            if (TOP_ROW_ARE_HEADERS && (! isHeaderRow)) {
+            if (! (TOP_ROW_ARE_HEADERS && isHeaderRow)) {
                 result.add(currLine.get(fileColumnIndexZeroBased));
             }
             isHeaderRow = false;
@@ -196,10 +208,9 @@ public class BcRunCsvMatchAndMerge {
         }
 
         logger.fine("Found Exactly One File <" + filesInDir[0].getAbsolutePath() + ">");
+        System.out.println("Found File <" + fileNumber + "> -- <" + filesInDir[0].getAbsolutePath() + ">");
         return filesInDir[0];
     }
-
-
 
 
 }

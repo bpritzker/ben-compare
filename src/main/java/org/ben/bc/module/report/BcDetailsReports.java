@@ -1,6 +1,6 @@
 package org.ben.bc.module.report;
 
-import org.ben.bc.BcUtils;
+import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.data.BcCompareResult;
 
 import java.io.File;
@@ -11,40 +11,44 @@ import java.util.Map;
 
 public class BcDetailsReports {
 
+    public static String getDetailsDir(String reportsDir) {
+        return reportsDir + "/details/";
+    }
+
     public void runDetailReports(String collectionName1, String collectionName2, BcCompareResult compareResults, String reportDirStr) {
 
 
-        File reportDetailsDir = new File(reportDirStr + "/details/");
-        BcUtils.mkDirs(reportDetailsDir);
+        File reportDetailsDir = new File(getDetailsDir(reportDirStr));
+        BcFileUtils.mkDirs(reportDetailsDir);
 
-        String cleanCollectionName1 = BcUtils.cleanFileName(collectionName1);
-        String cleanCollectionName2 = BcUtils.cleanFileName(collectionName2);
+        String cleanCollectionName1 = "'" + BcFileUtils.cleanFileName(collectionName1) + "'";
+        String cleanCollectionName2 = "'" + BcFileUtils.cleanFileName(collectionName2) + "'";
 
 
-        File collectionFile1 = new File(reportDetailsDir + "/" + cleanCollectionName1 + "-AllValues.txt");
-        BcUtils.writeToFile(compareResults.getCollection1(), collectionFile1);
+        File collectionFile1 = new File(reportDetailsDir + "/" + "AllValues-" + cleanCollectionName1 + ".txt");
+        BcFileUtils.writeToFile(compareResults.getCollection1(), collectionFile1);
 
-        File collectionFile2 = new File(reportDetailsDir + "/" + cleanCollectionName2 + "-AllValues.txt");
-        BcUtils.writeToFile(compareResults.getCollection2(), collectionFile2);
+        File collectionFile2 = new File(reportDetailsDir + "/" + "AllValues-" + cleanCollectionName2 + ".txt");
+        BcFileUtils.writeToFile(compareResults.getCollection2(), collectionFile2);
 
-        File normalizedFile1 = new File(reportDetailsDir + "/" + cleanCollectionName1 + "-CleanValues.txt");
+        File normalizedFile1 = new File(reportDetailsDir + "/" + "CleanValues-" + cleanCollectionName1 + ".txt");
         List<String> normalizedData = getNormalizedData(compareResults.getNormalized1());
-        BcUtils.writeToFile(normalizedData, normalizedFile1);
+        BcFileUtils.writeToFile(normalizedData, normalizedFile1);
 
-        File normalizedFile2 = new File(reportDetailsDir + "/" + cleanCollectionName2 + "-CleanValues.txt");
+        File normalizedFile2 = new File(reportDetailsDir + "/" + "CleanValues-" + cleanCollectionName2 + ".txt");
         normalizedData = getNormalizedData(compareResults.getNormalized2());
-        BcUtils.writeToFile(normalizedData, normalizedFile2);
+        BcFileUtils.writeToFile(normalizedData, normalizedFile2);
 
 
         File inC1NotInC2File = new File(reportDetailsDir + "/" + "In--" + cleanCollectionName1 + "--NotIn--" + cleanCollectionName2 + ".txt");
-        BcUtils.writeToFile(compareResults.getInC1NotInC2(), inC1NotInC2File);
+        BcFileUtils.writeToFile(compareResults.getInC1NotInC2(), inC1NotInC2File);
 
         File inC2NotInC1File = new File(reportDetailsDir + "/" + "In--" + cleanCollectionName2 + "--NotIn--" + cleanCollectionName1 + ".txt");
-        BcUtils.writeToFile(compareResults.getInC2NotInC1(), inC2NotInC1File);
+        BcFileUtils.writeToFile(compareResults.getInC2NotInC1(), inC2NotInC1File);
 
 
         File bothFile = new File(reportDetailsDir + "/" + "Matches" + ".txt");
-        BcUtils.writeToFile(compareResults.getInBoth(), bothFile);
+        BcFileUtils.writeToFile(compareResults.getInBoth(), bothFile);
 
 
 

@@ -1,6 +1,6 @@
 package org.ben.bc.module;
 
-import org.ben.bc.BcUtils;
+import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcReportConfig;
@@ -27,6 +27,8 @@ public class BcReporter {
 
     public void defaultReport(String collectionName1, String collectionName2, BcCompareResult compareResults, BcCompareConfig compareConfig) {
 
+        deleteExistingReports(reportConfig.getReportDir(), reportConfig.isDeleteExistingReports());
+
         List<String> reportData = buildReportData(collectionName1, collectionName2, compareResults, compareConfig);
         String reportDirStr = reportConfig.getReportDir();
 
@@ -44,10 +46,36 @@ public class BcReporter {
 
     }
 
+    private void deleteExistingReports(String reportDir, boolean deleteExistingReports) {
+        if (reportDir == null || (! deleteExistingReports)) {
+            // Do nothing.
+            return;
+        }
+
+        File reportDirFile = new File(reportDir);
+        if (reportDirFile.exists()) {
+            for (File file : reportDirFile.listFiles()) {
+                if (!file.isDirectory()) {
+                    file.delete();
+                }
+            }
+        }
+
+        reportDirFile = new File(BcDetailsReports.getDetailsDir(reportDir));
+        if (reportDirFile.exists()) {
+            for (File file : reportDirFile.listFiles()) {
+                if (!file.isDirectory()) {
+                    file.delete();
+                }
+            }
+        }
+
+    }
+
     private void toFile(List<String> reportData, String reportDirStr) {
 
         // If here, we want to create the File reports.
-        BcUtils.mkDirs(new File(reportDirStr));
+        BcFileUtils.mkDirs(new File(reportDirStr));
 
 
         File summaryReportFile = new File(reportDirStr + "/SummaryReportFile.txt");

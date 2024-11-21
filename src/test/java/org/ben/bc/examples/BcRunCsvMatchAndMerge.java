@@ -3,14 +3,13 @@ package org.ben.bc.examples;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.BcMain;
-import org.ben.bc.BcUtils;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.module.BcComparator;
 import org.ben.bc.testutil.BcTestingFileUtils;
-import org.ben.bc.testutil.BcTestingUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,8 +17,11 @@ import java.util.*;
 import java.util.logging.Logger;
 
 /**
- * This is the version of the program I want to use most of the time.
+ * This is the version of the program I (and think you will to) want to use most of the time.
  * It will load a CSV from a directory, then match and merge the data.
+ * You only need to tell it what column to focus on.
+ * It will create all the difference reports AND create a "merge" file.
+ * I SOOOOOOO want to call it a "marge" instead of "merge" file LOL
  *
  */
 public class BcRunCsvMatchAndMerge {
@@ -27,9 +29,14 @@ public class BcRunCsvMatchAndMerge {
 
 
     // REQUIRED.....
-    // NOTE: Use -1 if you want the whole line loaded.
+    // NOTE: Use -1 if you want the whole line loaded. (Think TXT file)
     private static final int FILE_COLUMN_INDEX_ZERO_BASED_1 = 0;
     private static final int FILE_COLUMN_INDEX_ZERO_BASED_2 = 1;
+
+
+    
+
+
     private static final String WORKING_DIR = "C:/Temp/Comparator";
 
 
@@ -68,7 +75,7 @@ public class BcRunCsvMatchAndMerge {
         File file2 = getFileInDirectory(WORKING_DIR, 2);
 
         if (file1 == null || file2 == null) {
-            BcTestingUtils.printOpenDirLink(WORKING_DIR);
+            BcTestingFileUtils.printOpenDirLink(WORKING_DIR);
             throw new RuntimeException("Error getting Input file at: <" + WORKING_DIR + ">. See Log for details.");
         }
 
@@ -86,14 +93,15 @@ public class BcRunCsvMatchAndMerge {
         config.getReportConfig().setDisplayValuesForDiff2(DISPLAY_DIFF_VALUES_2);
 
         BcCompareResult compareResult = BcMain.runCompare(
-                BcUtils.cleanFileName(file1.getName()), collection1,
-                BcUtils.cleanFileName(file2.getName()), collection2,
+                BcFileUtils.getCleanFileNameForDisplay(file1.getName()), collection1,
+                BcFileUtils.getCleanFileNameForDisplay(file2.getName()), collection2,
                 config);
 
         createMergeFile(compareResult, data1, data2, FILE_COLUMN_INDEX_ZERO_BASED_1, FILE_COLUMN_INDEX_ZERO_BASED_2, WORKING_DIR, config);
 
         File zipFile = new File(WORKING_DIR + "/Reports.zip");
         BcTestingFileUtils.zipDirectory(new File(WORKING_DIR + "/reports"), zipFile);
+        BcTestingFileUtils.printOpenDirLink(zipFile);
 
     }
 
@@ -192,7 +200,7 @@ public class BcRunCsvMatchAndMerge {
 
         if (! inputFileDir.exists()) {
             logger.severe("Directory for File NOT FOUND! <" + inputFileDir.getAbsolutePath() + "> (It was created for you)");
-            BcUtils.mkDirs(inputFileDir);
+            BcFileUtils.mkDirs(inputFileDir);
             return null;
         }
 

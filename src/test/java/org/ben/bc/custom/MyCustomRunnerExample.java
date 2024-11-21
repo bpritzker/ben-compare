@@ -3,6 +3,7 @@ package org.ben.bc.custom;
 
 import org.ben.bc.BcMain;
 import org.ben.bc.data.conf.BcConfig;
+import org.ben.bc.testutil.BcTestingFileUtils;
 import org.ben.bc.testutil.BcTestingUtils;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class MyCustomRunnerExample extends BcMain {
         run("List 1", list1, "List 2", list2, config);
 
         System.out.println("\n\n");
-        BcTestingUtils.printOpenDirLink(reportDir);
+        BcTestingFileUtils.printOpenDirLink(reportDir);
     }
 
 }

@@ -1,4 +1,4 @@
-package org.ben.bc.examples;
+package org.ben.bc.examples.other;
 
 import org.ben.bc.BcMain;
 

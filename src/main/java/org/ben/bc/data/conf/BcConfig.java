@@ -35,6 +35,7 @@ public class BcConfig {
         BcReportConfig reportConfig = new BcReportConfig();
         reportConfig.setReportDir(null);
         resultConfig.setReportConfig(reportConfig);
+        reportConfig.setDeleteExistingReports(true);
 
         return resultConfig;
     }

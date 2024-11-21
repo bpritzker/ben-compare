@@ -1,7 +1,7 @@
-package org.ben.bc.examples;
+package org.ben.bc.examples.other;
 
+import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.BcMain;
-import org.ben.bc.BcUtils;
 import org.ben.bc.testutil.BcTestingFileUtils;
 
 import java.io.File;
@@ -53,8 +53,8 @@ public class BcRunFromDirectories {
         List<String> list1 = BcTestingFileUtils.loadListFromCsvFile(file1.getAbsolutePath(), FILE_COLUMN_INDEX_ZERO_BASED_1);
         List<String> list2 = BcTestingFileUtils.loadListFromCsvFile(file2.getAbsolutePath(), FILE_COLUMN_INDEX_ZERO_BASED_2);
 
-        BcMain.runCompare(BcUtils.cleanFileName(file1.getName()), list1,
-                BcUtils.cleanFileName(file2.getName()), list2);
+        BcMain.runCompare(BcFileUtils.cleanFileName(file1.getName()), list1,
+                BcFileUtils.cleanFileName(file2.getName()), list2);
 
         File zipFile = new File(WORKING_DIR + "/Reports.zip");
         BcTestingFileUtils.zipDirectory(new File(WORKING_DIR + "/reports"), zipFile);
@@ -68,7 +68,7 @@ public class BcRunFromDirectories {
 
         if (! inputFileDir.exists()) {
             logger.severe("Directory for File NOT FOUND! (It was created for you)");
-            BcUtils.mkDirs(inputFileDir);
+            BcFileUtils.mkDirs(inputFileDir);
             return null;
         }
 

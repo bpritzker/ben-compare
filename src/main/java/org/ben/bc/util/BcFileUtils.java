@@ -1,4 +1,4 @@
-package org.ben.bc;
+package org.ben.bc.util;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,26 +6,26 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-public class BcUtils {
+public class BcFileUtils {
 
-    private static final Logger logger = Logger.getLogger(BcUtils.class.getName());
-
-
+    private static final Logger logger = Logger.getLogger(BcFileUtils.class.getName());
 
 
-    public static String defaultNotEmptyValue(String inString, String defaultValue) {
-        if (BcUtils.isBlank(inString)) {
-            return defaultValue;
+    public static String getCleanFileNameForDisplay(String inFileName) {
+        int lastPeriodIndex = inFileName.lastIndexOf('.');
+        String noExtension = inFileName;
+        if (lastPeriodIndex != -1) {
+            noExtension = inFileName.substring(0, lastPeriodIndex);
         }
-
-        return inString;
+        return BcFileUtils.cleanFileName(noExtension);
     }
+
 
 
     public static void writeToFile(Collection<String> collection, File outputFile) {
 
         // If here, we want to create the File reports.
-        BcUtils.mkDirs(outputFile.getParentFile());
+        BcFileUtils.mkDirs(outputFile.getParentFile());
 
         try (FileWriter writer = new FileWriter(outputFile)) {
             for(String str: collection) {
@@ -75,26 +75,6 @@ public class BcUtils {
         return result;
     }
 
-
-
-
-
-    public static boolean isBlank(CharSequence cs) {
-        if (cs == null) {
-            return true;
-        }
-
-        int strLen = cs.length();
-        if (strLen != 0) {
-            for (int i = 0; i < strLen; ++i) {
-                if (!Character.isWhitespace(cs.charAt(i))) {
-                    return false;
-                }
-            }
-
-        }
-        return true;
-    }
 
 
 }

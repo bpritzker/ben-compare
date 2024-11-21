@@ -1,6 +1,5 @@
 package org.ben.bc.testutil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -70,46 +69,6 @@ public class BcTestingUtils {
 
 
 
-    @SuppressWarnings("all") // can supress all cause testing code.
-    public static void printOpenDirLink(File file) {
-        printOpenDirLink(file.toString());
-    }
-    public static void printOpenDirLink(String inAbsolutePath) {
-        if (inAbsolutePath == null) {
-            logger.warning("Passed 'null' to 'printOpenDirLogLink'");
-            System.out.println("Passed 'null' to 'printOpenDirLogLink'");
-            return;
-        }
-
-        String sysPropName = System.getProperty("os.name");
-
-        if (! sysPropName.toUpperCase().contains("WIN")) {
-            logger.warning("DOES NOT SUPPORT MAC OS YET.");
-            return;
-        }
-
-        // Handle the case we pass in "/Users/ben/temp/compare/reports"
-        //  For that case we want to have the file start at "C:"
-        String cleanAbsolutePath;
-        if (inAbsolutePath.startsWith("/")) {
-            cleanAbsolutePath = "C:" + inAbsolutePath;
-        } else {
-            cleanAbsolutePath = inAbsolutePath;
-        }
-
-        // For windows... not sure if we need to move this outside for MAC as well....
-        String pathToOpen;
-        File tempFile = new File(cleanAbsolutePath);
-
-        if (tempFile.isDirectory()) {
-            pathToOpen = cleanAbsolutePath;
-        } else {
-            pathToOpen = tempFile.getParentFile().getAbsolutePath();
-        }
-
-        System.out.println("Clink Link to open to directory: file:///" + pathToOpen.replace("\\", "/"));
-
-    }
 
 
 }

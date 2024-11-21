@@ -5,6 +5,7 @@ import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.module.BcComparator;
 import org.ben.bc.module.BcReporter;
+import org.ben.bc.util.BcUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;

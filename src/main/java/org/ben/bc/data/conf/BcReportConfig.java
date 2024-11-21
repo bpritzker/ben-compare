@@ -25,6 +25,7 @@ public class BcReportConfig {
     // These are things you rarely want to change. Almost always leaved them
     private boolean printToConsole = true;
     private Long valuesDisplayMaxLength = 512L; // Set this to -1 if you want ALL items
+    private boolean deleteExistingReports;
 
 
     // Almost never change these! (There were added just because I could configure them).
@@ -119,5 +120,13 @@ public class BcReportConfig {
 
     public void setDisplayValuesForDiff2(boolean displayValuesForDiff2) {
         this.displayValuesForDiff2 = displayValuesForDiff2;
+    }
+
+    public boolean isDeleteExistingReports() {
+        return deleteExistingReports;
+    }
+
+    public void setDeleteExistingReports(boolean deleteExistingReports) {
+        this.deleteExistingReports = deleteExistingReports;
     }
 }

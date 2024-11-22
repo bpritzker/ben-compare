@@ -1,7 +1,7 @@
 package org.ben.bc.module.report;
 
-import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.data.BcCompareResult;
+import org.ben.bc.util.BcFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;

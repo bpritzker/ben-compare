@@ -1,11 +1,11 @@
 package org.ben.bc.module;
 
-import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcReportConfig;
 import org.ben.bc.module.report.BcDetailsReports;
 import org.ben.bc.module.report.BcSummaryReport;
+import org.ben.bc.util.BcFileUtils;
 
 import java.io.File;
 import java.io.FileWriter;

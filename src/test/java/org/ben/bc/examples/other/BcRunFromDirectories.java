@@ -1,8 +1,8 @@
 package org.ben.bc.examples.other;
 
-import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.BcMain;
 import org.ben.bc.testutil.BcTestingFileUtils;
+import org.ben.bc.util.BcFileUtils;
 
 import java.io.File;
 import java.util.List;

@@ -1,8 +1,8 @@
 package org.ben.bc.module;
 
-import org.ben.bc.util.BcUtils;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
+import org.ben.bc.util.BcUtils;
 
 import java.util.*;
 

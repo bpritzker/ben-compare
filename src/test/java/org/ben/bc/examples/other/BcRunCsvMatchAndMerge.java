@@ -1,15 +1,15 @@
-package org.ben.bc.examples;
+package org.ben.bc.examples.other;
 
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.ben.bc.util.BcFileUtils;
 import org.ben.bc.BcMain;
 import org.ben.bc.data.BcCompareResult;
 import org.ben.bc.data.conf.BcCompareConfig;
 import org.ben.bc.data.conf.BcConfig;
 import org.ben.bc.module.BcComparator;
 import org.ben.bc.testutil.BcTestingFileUtils;
+import org.ben.bc.util.BcFileUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,7 +21,8 @@ import java.util.logging.Logger;
  * It will load a CSV from a directory, then match and merge the data.
  * You only need to tell it what column to focus on.
  * It will create all the difference reports AND create a "merge" file.
- * I SOOOOOOO want to call it a "marge" instead of "merge" file LOL
+ *
+ * Side note: I SOOOOOOO want to call this a "marge" file instead of "merge" file LOL
  *
  */
 public class BcRunCsvMatchAndMerge {
@@ -60,7 +61,8 @@ public class BcRunCsvMatchAndMerge {
     public static void main(String[] args) {
         BcRunCsvMatchAndMerge runCsvMatchAndMerge = new BcRunCsvMatchAndMerge();
         try {
-            runCsvMatchAndMerge.run();
+            runCsvMatchAndMerge.run(FILE_COLUMN_INDEX_ZERO_BASED_1, FILE_COLUMN_INDEX_ZERO_BASED_2,
+                    WORKING_DIR, IGNORE_CASE, TOP_ROW_ARE_HEADERS, DISPLAY_VALUES_BOTH, DISPLAY_DIFF_VALUES_1, DISPLAY_DIFF_VALUES_2);
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe(e.getMessage());
@@ -68,45 +70,70 @@ public class BcRunCsvMatchAndMerge {
     }
 
 
-    private void run() throws Exception {
+    public void run(
+            int fileColumnIndexZeroBased1, int fileColumnIndexZeroBased2,
+            String workingDir,
+            boolean ignoreCase,
+            boolean topRowsAreHeaders,
+            boolean displayValuesBoth,
+            boolean displayDiffValues1,
+            boolean displayDiffValues2) throws Exception {
 
 
-        File file1 = getFileInDirectory(WORKING_DIR, 1);
-        File file2 = getFileInDirectory(WORKING_DIR, 2);
+        File file1 = getFileInDirectory(workingDir, 1);
+        File file2 = getFileInDirectory(workingDir, 2);
 
         if (file1 == null || file2 == null) {
-            BcTestingFileUtils.printOpenDirLink(WORKING_DIR);
-            throw new RuntimeException("Error getting Input file at: <" + WORKING_DIR + ">. See Log for details.");
+            BcTestingFileUtils.printOpenDirLink(workingDir);
+            throw new RuntimeException("Error getting Input file at: <" + workingDir + ">. See Log for details.");
         }
 
         List<List<String>> data1 = BcTestingFileUtils.loadDataFromCsvFile(file1);
         List<List<String>> data2 = BcTestingFileUtils.loadDataFromCsvFile(file2);
 
-        Collection<String> collection1 = getColumnData(data1, FILE_COLUMN_INDEX_ZERO_BASED_1);
-        Collection<String> collection2 = getColumnData(data2, FILE_COLUMN_INDEX_ZERO_BASED_2);
+        Collection<String> collection1 = getColumnData(data1, fileColumnIndexZeroBased1, topRowsAreHeaders);
+        Collection<String> collection2 = getColumnData(data2, fileColumnIndexZeroBased2, topRowsAreHeaders);
 
         BcConfig config = BcConfig.buildDefaultConfig();
-        config.getCompareConfig().setIgnoreCase(IGNORE_CASE);
-        config.getReportConfig().setReportDir(WORKING_DIR + "/reports");
-        config.getReportConfig().setDisplayValuesForBoth(DISPLAY_VALUES_BOTH);
-        config.getReportConfig().setDisplayValuesForDiff1(DISPLAY_DIFF_VALUES_1);
-        config.getReportConfig().setDisplayValuesForDiff2(DISPLAY_DIFF_VALUES_2);
+        config.getCompareConfig().setIgnoreCase(ignoreCase);
+        config.getReportConfig().setReportDir(workingDir + "/reports");
+        config.getReportConfig().setDisplayValuesForBoth(displayValuesBoth);
+        config.getReportConfig().setDisplayValuesForDiff1(displayDiffValues1);
+        config.getReportConfig().setDisplayValuesForDiff2(displayDiffValues2);
+
+        String collectionName1 = BcFileUtils.getCleanFileNameForDisplay(file1.getName());
+        String collectionName2 = BcFileUtils.getCleanFileNameForDisplay(file2.getName());
 
         BcCompareResult compareResult = BcMain.runCompare(
-                BcFileUtils.getCleanFileNameForDisplay(file1.getName()), collection1,
-                BcFileUtils.getCleanFileNameForDisplay(file2.getName()), collection2,
+                collectionName1, collection1,
+                collectionName2, collection2,
                 config);
 
-        createMergeFile(compareResult, data1, data2, FILE_COLUMN_INDEX_ZERO_BASED_1, FILE_COLUMN_INDEX_ZERO_BASED_2, WORKING_DIR, config);
+        // Merge file here...
+        createMergeFile(
+                compareResult,
+                collectionName1, data1, fileColumnIndexZeroBased1,
+                collectionName2, data2,  fileColumnIndexZeroBased2,
+                workingDir, config, topRowsAreHeaders);
 
-        File zipFile = new File(WORKING_DIR + "/Reports.zip");
-        BcTestingFileUtils.zipDirectory(new File(WORKING_DIR + "/reports"), zipFile);
+        File zipFile = new File(workingDir + "/Reports.zip");
+        BcTestingFileUtils.zipDirectory(new File(workingDir + "/reports"), zipFile);
         BcTestingFileUtils.printOpenDirLink(zipFile);
 
     }
 
+
+
     @SuppressWarnings("All")
-    private void createMergeFile(BcCompareResult compareResult, List<List<String>> data1, List<List<String>> data2, int fileColumnIndexZeroBased1, int fileColumnIndexZeroBased2, String workingDir, BcConfig config) throws Exception {
+    protected void createMergeFile(BcCompareResult compareResult,
+                                   String dataName1,
+                                   List<List<String>> data1,
+                                   int fileColumnIndexZeroBased1,
+                                   String dataName2,
+                                   List<List<String>> data2,
+                                   int fileColumnIndexZeroBased2,
+                                   String workingDir, BcConfig config,
+                                   boolean topRowsAreHeaders) throws Exception {
 
 
         Map<String, List<List<String>>> dataMap1 = buildDataMap(data1, fileColumnIndexZeroBased1, config.getCompareConfig());
@@ -117,8 +144,15 @@ public class BcRunCsvMatchAndMerge {
         List<String> headerRow = new ArrayList<>();
         headerRow.add("Match Value");
         headerRow.add("Is Exact Match");
-        headerRow.addAll(data1.get(0));
-        headerRow.addAll(data2.get(0));
+
+        headerRow.add("BEGIN '" + dataName1 + "'");
+        List<String> headersData1 = buildDataHeaders(data1, 1, topRowsAreHeaders);
+        headerRow.addAll(headersData1);
+
+        headerRow.add("BEGIN '" + dataName2 + "'");
+        List<String> headersData2 = buildDataHeaders(data2, 2, topRowsAreHeaders);
+        headerRow.addAll(headersData2);
+
         reportData.add(headerRow);
 
         for (String currMatchValue : compareResult.getInBoth()) {
@@ -128,7 +162,9 @@ public class BcRunCsvMatchAndMerge {
             List<String> matchResult = new ArrayList<>();
             matchResult.add(currMatchValue);
             matchResult.add(matchValue);
+            matchResult.add(""); // Balnk separator for data set 1
             matchResult.addAll(matchValues1.get(0));
+            matchResult.add(""); // Balnk separator for data set 2
             matchResult.addAll(matchValues2.get(0));
             reportData.add(matchResult);
         }
@@ -138,7 +174,21 @@ public class BcRunCsvMatchAndMerge {
         createCsvFile(reportData, reportMergedDataFile);
     }
 
-    private void createCsvFile(List<List<String>> csvData, File file) throws Exception {
+    protected List<String> buildDataHeaders(List<List<String>> data, int dataNumber, boolean topRowsAreHeaders) {
+
+        List<String> result = new ArrayList<>();
+        if (topRowsAreHeaders) {
+            result.addAll(data.get(0));
+        } else {
+            // for this, we want the length of a data line. We should always have at least 1 data point so just hard code 0
+            for (int i=0; i< data.get(0).size(); i++) {
+                result.add("Header " + dataNumber +"-" + (i+1));
+            }
+        }
+        return result;
+    }
+
+    protected void createCsvFile(List<List<String>> csvData, File file) throws Exception {
 
         CSVPrinter csvFilePrinter;
         CSVFormat csvFileFormat = CSVFormat.EXCEL;
@@ -160,7 +210,7 @@ public class BcRunCsvMatchAndMerge {
      * This will collect all the lines by normalized values.
      * @return Map with the key being the normalized value and the List<List>> being the list of lines that matched.
      */
-    private Map<String, List<List<String>>> buildDataMap(List<List<String>> data, int fileColumnIndexZeroBased, BcCompareConfig compareConfig) {
+    protected Map<String, List<List<String>>> buildDataMap(List<List<String>> data, int fileColumnIndexZeroBased, BcCompareConfig compareConfig) {
         BcComparator tempComparator = new BcComparator(compareConfig);
 
         Map<String, List<List<String>>> result = new HashMap<>();
@@ -179,14 +229,14 @@ public class BcRunCsvMatchAndMerge {
     }
 
 
-    private Collection<String> getColumnData(List<List<String>> data, int fileColumnIndexZeroBased) {
+    protected Collection<String> getColumnData(List<List<String>> data, int fileColumnIndexZeroBased, boolean topRowsAreHeaders) {
         Collection<String> result = new ArrayList<>();
         boolean isHeaderRow = true;
         for (List<String> currLine : data) {
 
             // Skip first row
 
-            if (! (TOP_ROW_ARE_HEADERS && isHeaderRow)) {
+            if (! (topRowsAreHeaders && isHeaderRow)) {
                 result.add(currLine.get(fileColumnIndexZeroBased));
             }
             isHeaderRow = false;
@@ -195,7 +245,7 @@ public class BcRunCsvMatchAndMerge {
     }
 
 
-    private File getFileInDirectory(String workingDir, int fileNumber) {
+    protected File getFileInDirectory(String workingDir, int fileNumber) {
         File inputFileDir = new File(workingDir + "/Input-File-" + fileNumber);
 
         if (! inputFileDir.exists()) {

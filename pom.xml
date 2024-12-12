@@ -6,38 +6,20 @@
   <description>A pure Java super simple way to compare 2 Lists(Collections) that is defaulted to usually tell you what you want to know.</description>
   <url>https://github.com/bpritzker/ben-compare</url>
 
-  <groupId>net.benpritzker</groupId>
+  <groupId>net.benp</groupId>
   <artifactId>bencompare</artifactId>
-  <version>1.1.7</version>
+  <version>1.1.8</version>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
 
   <dependencies>
-
-    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
-    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
-    <!--  BEGIN - YOUR DEPENDENCIES HERE -->
-    <!-- This is a good place to copy your dependencies so you can easily merge them when a new version comes out. -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--  END - YOUR DEPENDENCIES -->
-    <!--  END - YOUR DEPENDENCIES -->
-    <!--  END - YOUR DEPENDENCIES -->
-
 
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
@@ -56,15 +38,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
 
 
   <packaging>jar</packaging>

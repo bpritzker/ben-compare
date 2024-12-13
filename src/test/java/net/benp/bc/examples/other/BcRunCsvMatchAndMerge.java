@@ -22,8 +22,6 @@ import java.util.logging.Logger;
  * You only need to tell it what column to focus on.
  * It will create all the difference reports AND create a "merge" file.
  *
- * Side note: I SOOOOOOO want to call this a "marge" file instead of "merge" file LOL
- *
  */
 public class BcRunCsvMatchAndMerge {
 

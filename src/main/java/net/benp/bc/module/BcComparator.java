@@ -107,7 +107,7 @@ public class BcComparator {
 
     public String normalizeValue(String inValue, BcCompareConfig compareConfig) {
 
-        // If we want to handle blanks separately and it's blank, then the normalized value will be 'null'
+        // If we want to handle blanks separately, and it's blank, then the normalized value will be 'null'
         if (compareConfig.isHandleBlanksSeparately() && BcUtils.isBlank(inValue)) {
             return null;
         }

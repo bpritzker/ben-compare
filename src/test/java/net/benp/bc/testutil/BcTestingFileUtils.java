@@ -65,7 +65,7 @@ public class BcTestingFileUtils {
 
     /**
      *
-     * @param inZipFile - You can pass in the file you want to create OR pass in null and it will create a zip file with the directory name.
+     * @param inZipFile - You can pass in the file you want to create OR pass in null, and it will create a zip file with the directory name.
      */
     public static void zipDirectory(File directoryToZip, File inZipFile) throws Exception {
 
@@ -82,12 +82,6 @@ public class BcTestingFileUtils {
             fos = new FileOutputStream(zipFile);
             zos = new ZipOutputStream(fos);
             addDirToZipArchive(zos, new File(directoryToZip.getAbsolutePath()), null);
-
-//        } catch (FileNotFoundException fnfe) {
-//            throw new PsEverbridgeException("Error opening file for zipping.", fnfe, "directoryToZip", directoryToZip.getAbsolutePath(), "zipFile", zipFile.getAbsolutePath());
-//        } catch (IOException ioe) {
-//            throw new PsEverbridgeException("Io Exception file for zipping.", ioe, "directoryToZip", directoryToZip.getAbsolutePath(), "zipFile", zipFile.getAbsolutePath());
-
         } finally {
             try {
                 if (zos != null) {
@@ -105,7 +99,6 @@ public class BcTestingFileUtils {
             } catch (Exception e) {
                 System.out.println("Nothing to do here! ");
                 logger.severe("Error trying to close the FileOutputStream or ZipOutputStream while archiving file");
-//                throw new PsEverbridgeException("Error trying to close the FileOutputStream or ZipOutputStream while archiving file", e);
             }
         }
 

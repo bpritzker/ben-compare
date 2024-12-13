@@ -52,24 +52,29 @@ public class BcReporter {
             return;
         }
 
-        File reportDirFile = new File(reportDir);
-        if (reportDirFile.exists()) {
-            for (File file : reportDirFile.listFiles()) {
-                if (!file.isDirectory()) {
-                    file.delete();
+        deleteFileInDir(new File(reportDir));
+        deleteFileInDir(new File(BcDetailsReports.getDetailsDir(reportDir)));
+    }
+
+    private void deleteFileInDir(File dirToDeleteFileFrom) {
+
+        if (dirToDeleteFileFrom == null || (! dirToDeleteFileFrom.exists())) {
+            return;
+        }
+
+        File[] reportFiles = dirToDeleteFileFrom.listFiles();
+        if (reportFiles == null) {
+            return;
+        }
+
+        for (File file : reportFiles) {
+            if (!file.isDirectory()) {
+                boolean deleteResult = file.delete();
+                if (! deleteResult) {
+                    logger.warning("Failed to delete File: <" + file.getAbsolutePath() + ">");
                 }
             }
         }
-
-        reportDirFile = new File(BcDetailsReports.getDetailsDir(reportDir));
-        if (reportDirFile.exists()) {
-            for (File file : reportDirFile.listFiles()) {
-                if (!file.isDirectory()) {
-                    file.delete();
-                }
-            }
-        }
-
     }
 
     private void toFile(List<String> reportData, String reportDirStr) {

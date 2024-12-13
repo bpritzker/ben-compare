@@ -8,7 +8,7 @@
 
   <groupId>net.benp</groupId>
   <artifactId>bencompare</artifactId>
-  <version>1.1.9</version>
+  <version>1.2.1</version>
 
 
   <properties>
@@ -31,7 +31,7 @@
 
 
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
-    <!-- I want to work with CSV files but don't want to add a dependency to the main project so I put all the CSV file
+    <!-- I want to work with CSV files but don't want to add a dependency to the main project so, I put all the CSV file
     stuff in test and can include the library just in test. -->
     <dependency>
       <groupId>org.apache.commons</groupId>

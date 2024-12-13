@@ -121,7 +121,7 @@ public class BcSummaryReport {
         StringBuilder duplicatesDisplay =  new StringBuilder("{");
         String separator = "";
         for (String currNormalizedValue : normalized.keySet()) {
-            // Note, this needs to be a List because we need to know how many total values were deduped out
+            // Note, this needs to be a List because we need to know how many total values were de-duped out
             List<String> values = new ArrayList<>(normalized.get(currNormalizedValue));
             if (values.size() > 1) {
                 // These are the ones we care about...
@@ -153,7 +153,7 @@ public class BcSummaryReport {
 
         StringBuilder sb = new StringBuilder();
 
-        if (collection == null || collection.size() == 0) {
+        if (collection == null || collection.isEmpty()) {
             return "";
         }
 

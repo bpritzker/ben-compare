@@ -16,10 +16,10 @@ people understand. I want the result be readable by non-techies.
 <br>
 
 <b>GETTING STARTED</b><br>
-1. Goto the "test" folder.
-2. The "MainManualRunner" is the simplest example of how to run the program. You can run that...
-3. Goto the "examples" folder under test... This will have more complex examples including how to load from a CSV file.
-4. The "examples" have parameters at the top, just fill those in and run.
+1. Goto the "src/test/java/../examples" folder.
+2. You will find 2 files, "SuperSimpleExample.java" and "BcRunCsvMatchAndMergeMain". These are the 2 best examples I think you will use.
+3. You should just be able to run the SuperSimpleExample and see what the program does. (Note, this does NOT include any file reports).
+4. After you run that, you will want to look at the BcRunCsvMatchAndMergeMain. You can also just run this. It should create the 
 5. You can take the "examples" and put them directly in your project, you might need include the "TEST" Maven dependencies. 
 
 <br>

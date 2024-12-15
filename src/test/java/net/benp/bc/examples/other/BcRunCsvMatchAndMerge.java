@@ -82,8 +82,12 @@ public class BcRunCsvMatchAndMerge {
         File file2 = getFileInDirectory(workingDir, 2);
 
         if (file1 == null || file2 == null) {
-            BcTestingFileUtils.printOpenDirLink(workingDir);
-            throw new RuntimeException("Error getting Input file at: <" + workingDir + ">. See Log for details.");
+            fileNotFoundError(workingDir, file1, file2);
+            // Not sure if I want to throw an Exception or just return.
+            // I'm leaning towards a very detailed error message and just return.
+            // The program did NOT crash.
+            return;
+//            throw new RuntimeException("Error getting Input file at: <" + workingDir + ">. See Log for details.");
         }
 
         List<List<String>> data1 = BcTestingFileUtils.loadDataFromCsvFile(file1);
@@ -120,6 +124,43 @@ public class BcRunCsvMatchAndMerge {
 
     }
 
+
+    /**
+     * This should be the most common error people will see when first trying to use the program.
+     * </br>
+     * I want this error to be as verbose and easy to figure out and fix as possible!
+     */
+    private void fileNotFoundError(String workingDir, File file1, File file2) {
+        File fileInputDir1 = getInputFileDir(workingDir, 1);
+        File fileInputDir2 = getInputFileDir(workingDir, 2);
+        System.out.println();
+        System.out.println();
+        System.out.println("************************* READ BELOW TO FIX THE ERROR ********************");
+        System.out.println("************************* READ BELOW TO FIX THE ERROR ********************");
+        System.out.println("************************* READ BELOW TO FIX THE ERROR ********************");
+        System.out.println("There was an ERROR getting the input files.");
+        System.out.println("Either the Input directories do not exist or the files were not found!");
+        System.out.println("Expected to find a file in the following directories:");
+//        System.out.println("Input File Location: " + workingDir);
+        System.out.println("Input File Directory 1: <" + fileInputDir1.getAbsolutePath() + ">");
+        System.out.println("Input File Directory 2: <" + fileInputDir2.getAbsolutePath() + ">");
+
+        // At this point, the directories should already have been created
+        if (file1 == null) {
+            System.out.println("You need to put a file in the input *1* Directory.");
+        }
+
+        if (file2 == null) {
+            System.out.println("You need to put a file in the input *2* Directory.");
+        }
+
+        System.out.println(); // Add space between main error message and open dir link
+        BcTestingFileUtils.printOpenDirLink(workingDir);
+        System.out.println(); // Add space between main error message and open dir link
+        System.out.println("****************************************************************************");
+        System.out.println(); // Add space between main error message and open dir link
+
+    }
 
 
     @SuppressWarnings("All")
@@ -244,7 +285,8 @@ public class BcRunCsvMatchAndMerge {
 
 
     protected File getFileInDirectory(String workingDir, int fileNumber) {
-        File inputFileDir = new File(workingDir + "/Input-File-" + fileNumber);
+
+        File inputFileDir = getInputFileDir(workingDir, fileNumber);
 
         if (! inputFileDir.exists()) {
             logger.severe("Directory for File NOT FOUND! <" + inputFileDir.getAbsolutePath() + "> (It was created for you)");
@@ -266,6 +308,10 @@ public class BcRunCsvMatchAndMerge {
         logger.fine("Found Exactly One File <" + filesInDir[0].getAbsolutePath() + ">");
         System.out.println("Found File <" + fileNumber + "> -- <" + filesInDir[0].getAbsolutePath() + ">");
         return filesInDir[0];
+    }
+
+    private File getInputFileDir(String workingDir, int fileNumber) {
+        return new File(workingDir + "/Input-File-" + fileNumber);
     }
 
 

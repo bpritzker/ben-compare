@@ -1,6 +1,6 @@
 package net.benp.bc.examples.other;
 
-import net.benp.bc.BcMain;
+import net.benp.bc.BcCompareMain;
 import net.benp.bc.testutil.BcTestingFileUtils;
 import net.benp.bc.util.BcFileUtils;
 
@@ -53,7 +53,7 @@ public class BcRunFromDirectories {
         List<String> list1 = BcTestingFileUtils.loadListFromCsvFile(file1.getAbsolutePath(), FILE_COLUMN_INDEX_ZERO_BASED_1);
         List<String> list2 = BcTestingFileUtils.loadListFromCsvFile(file2.getAbsolutePath(), FILE_COLUMN_INDEX_ZERO_BASED_2);
 
-        BcMain.runCompare(BcFileUtils.cleanFileName(file1.getName()), list1,
+        BcCompareMain.runCompare(BcFileUtils.cleanFileName(file1.getName()), list1,
                 BcFileUtils.cleanFileName(file2.getName()), list2);
 
         File zipFile = new File(WORKING_DIR + "/Reports.zip");

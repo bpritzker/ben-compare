@@ -1,7 +1,7 @@
 package net.benp.bc.custom;
 
 
-import net.benp.bc.BcMain;
+import net.benp.bc.BcCompareMain;
 import net.benp.bc.data.conf.BcConfig;
 import net.benp.bc.testutil.BcTestingFileUtils;
 import net.benp.bc.testutil.BcTestingUtils;
@@ -13,7 +13,7 @@ import java.util.List;
  * I will never put anything else in this directory so you can store your runners without me overwriting them
  *
  */
-public class MyCustomRunnerExample extends BcMain {
+public class MyCustomRunnerExample extends BcCompareMain {
 
 
 

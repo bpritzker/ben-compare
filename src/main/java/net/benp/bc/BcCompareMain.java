@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class BcMain {
+public class BcCompareMain {
 
 
 
@@ -27,7 +27,7 @@ public class BcMain {
      */
     public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
                                              String collectionName2, Collection<String> collection2) {
-        BcMain main = new BcMain();
+        BcCompareMain main = new BcCompareMain();
         return main.runCompareMain(collectionName1, collection1, collectionName2, collection2, null);
     }
 
@@ -42,7 +42,7 @@ public class BcMain {
     public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
                                   String collectionName2, Collection<String> collection2,
                                   String reportDir) {
-        BcMain main = new BcMain();
+        BcCompareMain main = new BcCompareMain();
         return main.runCompareMain(collectionName1, collection1, collectionName2, collection2, reportDir);
     }
 
@@ -60,7 +60,7 @@ public class BcMain {
     public static BcCompareResult runCompare(String collectionName1, Collection<String> collection1,
                                        String collectionName2, Collection<String> collection2,
                                        BcConfig config) {
-        BcMain main = new BcMain();
+        BcCompareMain main = new BcCompareMain();
         return main.run(collectionName1, collection1, collectionName2, collection2, config);
     }
 

@@ -1,6 +1,6 @@
 package net.benp.bc.examples.other;
 
-import net.benp.bc.BcMain;
+import net.benp.bc.BcCompareMain;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-public class BcRunFrom2Files extends BcMain {
+public class BcCompareRunFrom2Files extends BcCompareMain {
 
     // REQUIRED.....
     private static final String COLLECTION_NAME_1 = "";
@@ -21,11 +21,11 @@ public class BcRunFrom2Files extends BcMain {
     // OPTIONAL...
 
 
-    private static final Logger logger = Logger.getLogger(BcRunFrom2Files.class.getName());
+    private static final Logger logger = Logger.getLogger(BcCompareRunFrom2Files.class.getName());
 
 
     public static void main(String[] args) {
-        BcRunFrom2Files runFrom2Files = new BcRunFrom2Files();
+        BcCompareRunFrom2Files runFrom2Files = new BcCompareRunFrom2Files();
         try {
             runFrom2Files.run();
         } catch (IOException e) {
@@ -37,7 +37,7 @@ public class BcRunFrom2Files extends BcMain {
         Collection<String> collection1 = loadCollectionFromFile(ABSOLUTE_PATH_FILE_1);
         Collection<String> collection2 = loadCollectionFromFile(ABSOLUTE_PATH_FILE_2);
 
-        BcMain.runCompare(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
+        BcCompareMain.runCompare(COLLECTION_NAME_1, collection1, COLLECTION_NAME_2, collection2);
     }
 
 

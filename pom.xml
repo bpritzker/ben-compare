@@ -8,9 +8,10 @@
 
   <groupId>net.benp</groupId>
   <artifactId>bencompare</artifactId>
-  <version>1.2.2</version>
+  <version>1.2.3</version>
 
 
+  <!-- I set the Target at 1.8 because there is no reason to make it higher -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -19,6 +20,12 @@
   </properties>
 
 
+
+  <!--
+  I wanted the program to be easy to incorporate into existing code so I didn't want
+  to add any dependencies to the main comparison program.
+  All Dependencies are for tests/examples.
+  -->
   <dependencies>
 
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -42,7 +49,6 @@
   </dependencies>
 
 
-  <packaging>jar</packaging>
 
   <licenses>
     <license>
@@ -50,5 +56,8 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+
+
+  <packaging>jar</packaging>
 
 </project>

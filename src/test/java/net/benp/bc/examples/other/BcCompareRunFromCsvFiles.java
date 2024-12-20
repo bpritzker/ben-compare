@@ -1,7 +1,7 @@
 package net.benp.bc.examples.other;
 
 
-import net.benp.bc.BcMain;
+import net.benp.bc.BcCompareMain;
 import net.benp.bc.data.conf.BcConfig;
 import net.benp.bc.testutil.BcTestingFileUtils;
 
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Sample runner to load data from columns in a CSV files.
  *
  */
-public class BcRunFromCsvFiles extends BcMain {
+public class BcCompareRunFromCsvFiles extends BcCompareMain {
 
     private static final String ABSOLUTE_PATH_FILE_1  = "";
     private static final int COLUMN_1 = -1;
@@ -33,12 +33,12 @@ public class BcRunFromCsvFiles extends BcMain {
 
 
 
-    private static final Logger logger = Logger.getLogger(BcRunFromCsvFiles.class.getName());
+    private static final Logger logger = Logger.getLogger(BcCompareRunFromCsvFiles.class.getName());
 
 
 
     public static void main(String[] args) {
-        BcRunFromCsvFiles runFromCsvFiles = new BcRunFromCsvFiles();
+        BcCompareRunFromCsvFiles runFromCsvFiles = new BcCompareRunFromCsvFiles();
         try {
             runFromCsvFiles.run();
         } catch (Exception e) {

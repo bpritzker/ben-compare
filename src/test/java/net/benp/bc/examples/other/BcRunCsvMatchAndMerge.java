@@ -3,7 +3,7 @@ package net.benp.bc.examples.other;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import net.benp.bc.BcMain;
+import net.benp.bc.BcCompareMain;
 import net.benp.bc.data.BcCompareResult;
 import net.benp.bc.data.conf.BcCompareConfig;
 import net.benp.bc.data.conf.BcConfig;
@@ -106,7 +106,7 @@ public class BcRunCsvMatchAndMerge {
         String collectionName1 = BcFileUtils.getCleanFileNameForDisplay(file1.getName());
         String collectionName2 = BcFileUtils.getCleanFileNameForDisplay(file2.getName());
 
-        BcCompareResult compareResult = BcMain.runCompare(
+        BcCompareResult compareResult = BcCompareMain.runCompare(
                 collectionName1, collection1,
                 collectionName2, collection2,
                 config);

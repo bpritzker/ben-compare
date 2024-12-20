@@ -48,6 +48,7 @@ is no actual length enforced.
 <br><br><br><br><br><br>
 <br><br><br><br><br><br>
 <b>TODO:</b>
+* Add Config Builder
 * Add recommended length to Input List Names.
 * https://opensource.stackexchange.com/questions/4710/how-to-publish-my-open-source-library-to-maven
 * When the program starts... if using reports, check to see if any of the existing reports are open in Excel (aka: locked)

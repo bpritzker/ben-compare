@@ -31,11 +31,11 @@ public class BcDetailsReports {
         File collectionFile2 = new File(reportDetailsDir + "/" + "AllValues-" + cleanCollectionName2 + ".txt");
         BcFileUtils.writeToFile(compareResults.getCollection2(), collectionFile2);
 
-        File normalizedFile1 = new File(reportDetailsDir + "/" + "CleanValues-" + cleanCollectionName1 + ".txt");
+        File normalizedFile1 = new File(reportDetailsDir + "/" + "MergedValues-" + cleanCollectionName1 + ".csv");
         List<String> normalizedData = getNormalizedData(compareResults.getNormalized1());
         BcFileUtils.writeToFile(normalizedData, normalizedFile1);
 
-        File normalizedFile2 = new File(reportDetailsDir + "/" + "CleanValues-" + cleanCollectionName2 + ".txt");
+        File normalizedFile2 = new File(reportDetailsDir + "/" + "MergedValues-" + cleanCollectionName2 + ".csv");
         normalizedData = getNormalizedData(compareResults.getNormalized2());
         BcFileUtils.writeToFile(normalizedData, normalizedFile2);
 
@@ -67,7 +67,16 @@ public class BcDetailsReports {
             StringBuilder stringBuilder = new StringBuilder();
             String separator = "";
             for (String currValue : currLine) {
-                stringBuilder.append(separator).append(currValue);
+
+                // NOTE: This might not be perfect, but I wanted to get most of the CSV output correct.
+                // I didn't want to pull in a Library just for this one thing.
+                //  Looking at libraries, I would have needed to pull in either an out of date non-trusted library
+                //  or something like commons that contains even more dependencies.
+                String outputCsvValue = currValue;
+                if (currValue.contains(",") || currValue.contains("\"") || currValue.contains("\n") || currValue.contains("\r")) {
+                    outputCsvValue = "\"" + currValue.replace("\"", "\"\"") + "\"";
+                }
+                stringBuilder.append(separator).append(outputCsvValue);
                 separator = ",";
             }
             result.add(stringBuilder.toString());

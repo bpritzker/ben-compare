@@ -34,8 +34,14 @@ public class BcConfig {
 
         BcReportConfig reportConfig = new BcReportConfig();
         reportConfig.setReportDir(null);
-        resultConfig.setReportConfig(reportConfig);
         reportConfig.setDeleteExistingReports(true);
+        reportConfig.setDisplayValuesForBoth(false);
+        reportConfig.setDisplayValuesForDiff1(false);
+        reportConfig.setDisplayValuesForDiff2(false);
+        reportConfig.setDisplayValuesForDuplicates(false);
+        reportConfig.setDisplayValuesForTotal(false);
+        resultConfig.setReportConfig(reportConfig);
+
 
         return resultConfig;
     }

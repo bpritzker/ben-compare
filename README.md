@@ -48,6 +48,8 @@ is no actual length enforced.
 <br><br><br><br><br><br>
 <br><br><br><br><br><br>
 <b>TODO:</b>
+* Add a "pure Java CSV parser" basically something the breaks a line-up by commas. Include a WARN message when using because well know that is not a good idea.
+*         Building on that, add a provision to super easily include apache CSV parser instead of our junk parser lol
 * Add Config Builder
 * Add recommended length to Input List Names.
 * https://opensource.stackexchange.com/questions/4710/how-to-publish-my-open-source-library-to-maven

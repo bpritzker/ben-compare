@@ -8,7 +8,7 @@
 
   <groupId>net.benp</groupId>
   <artifactId>bencompare</artifactId>
-  <version>1.2.4</version>
+  <version>1.2.5</version>
 
 
   <!-- I set the Target at 1.8 because there is no reason to make it higher -->
@@ -22,7 +22,7 @@
 
 
   <!--
-  I wanted the program to be easy to incorporate into existing code so I didn't want
+  I wanted the program to be easy to incorporate into existing code, so I didn't want
   to add any dependencies to the main comparison program.
   All Dependencies are for tests/examples.
   -->
@@ -43,7 +43,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
-      <version>1.12.0</version>
+      <version>1.14.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

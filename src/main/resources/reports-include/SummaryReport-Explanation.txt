@@ -16,7 +16,7 @@ Blank is defined as anything that is ALL whitespace. (Think empty cells, spaces 
 
 
 THE FORMULA IS:
-Total Items =  Duplicates Removed+ Blanks Removed + In BOTH + Total Items IN but not in other
+Total Items =  Duplicates Removed + Blanks Removed + In BOTH + Total Items IN but not in other
 
 
 

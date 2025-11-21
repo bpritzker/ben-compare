@@ -63,14 +63,14 @@ public class BcSummaryReport {
         // Add in values that match for Both
         result.add("");
         result.add("");
-        result.add("In BOTH: " + compareResults.getInBoth().size());
+        // Add in values in one but NOT the other collection
+        result.addAll(buildDiff(name1, name2, compareResults.getInC1NotInC2(), reportConfig.isDisplayValuesForDiff1(), reportConfig.getValuesDisplayMaxLength()));
+        result.addAll(buildDiff(name2, name1, compareResults.getInC2NotInC1(), reportConfig.isDisplayValuesForDiff2(), reportConfig.getValuesDisplayMaxLength()));
+        result.add("In (" + name1 + ") AND (" + name2 + "): " + compareResults.getInBoth().size());
         if (reportConfig.isDisplayValuesForBoth()) {
             result.add("   " + collectionForDisplay(compareResults.getInBoth(), reportConfig.getValuesDisplayMaxLength()));
         }
 
-        // Add in values in one but NOT the other collection
-        result.addAll(buildDiff(name1, name2, compareResults.getInC1NotInC2(), reportConfig.isDisplayValuesForDiff1(), reportConfig.getValuesDisplayMaxLength()));
-        result.addAll(buildDiff(name2, name1, compareResults.getInC2NotInC1(), reportConfig.isDisplayValuesForDiff2(), reportConfig.getValuesDisplayMaxLength()));
 
 
         return result;
@@ -96,7 +96,7 @@ public class BcSummaryReport {
 
         List<String> result = new ArrayList<>();
         String differencesString = "Total Items in (%s) that are NOT in (%s): %d";
-        result.add("");
+//        result.add("");
         result.add(String.format(differencesString, inCollectionName, notInCollectionName, collection.size()));
         if (isDisplayValues) {
             result.add("   " + collectionForDisplay(collection, valuesDisplayMaxLength));

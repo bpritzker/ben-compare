@@ -9,10 +9,12 @@ import net.benp.bc.util.BcUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 public class BcCompareMain {
 
+    private static final Logger logger = Logger.getLogger(BcCompareMain.class.getName());
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +31,18 @@ public class BcCompareMain {
                                              String collectionName2, Collection<String> collection2) {
         BcCompareMain main = new BcCompareMain();
         return main.runCompareMain(collectionName1, collection1, collectionName2, collection2, null);
+    }
+
+
+    /**
+     * This is a simple way to just get the compare and get the results object.
+     * It should not print anything in the console.
+     */
+    public static BcCompareResult runCompare(Collection<String> collection1, Collection<String> collection2) {
+        BcCompareMain main = new BcCompareMain();
+        BcConfig config = BcConfig.buildDefaultConfig();
+        config.setReportConfig(null);
+        return main.run(null, collection1, null, collection2, config);
     }
 
 
@@ -143,6 +157,9 @@ public class BcCompareMain {
 
 
     protected void reportResults(String collectionName1, String collectionName2, BcCompareResult compareResults, BcConfig config) {
+        if (config.getReportConfig() == null) {
+            logger.fine("BcCompcare.ReportConfig is 'null', skipping reporting.");
+        }
         BcReporter reporter = new BcReporter(config.getReportConfig());
         reporter.defaultReport(collectionName1, collectionName2, compareResults, config.getCompareConfig());
     }

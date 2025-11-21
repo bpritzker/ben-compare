@@ -56,7 +56,7 @@ public class BcFileUtils {
 
 
     /**
-     * This will replace all NON a-z A-Z and 0-9 characters with underscores.
+     * This will replace all NON a-z A-Z and 0-9 and dash characters with underscores.
      * It will also replace any double underscores with a single one.
      * Eventually we can make this even smarter if we want.
      */

@@ -12,8 +12,9 @@ public class BcCompareUtils {
 
 
     /**
-     * This is used to find all the values that have more than 2 mapping.
+     * This is used to find all the values that have more than 2 mappings.
      * I figured this would be a common thing I will need to do, so I put it into a util.
+     *
      */
     public static Map<String, List<String>> findDuplicates(Map<String, List<String>> normalizedMapping) {
 

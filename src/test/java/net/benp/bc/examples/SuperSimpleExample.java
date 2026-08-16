@@ -5,6 +5,7 @@ import net.benp.bc.BcCompareMain;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -17,10 +18,11 @@ public class SuperSimpleExample {
 
     public static void main(String[] args) {
 
-        Set<String> set1 = new HashSet<>(Arrays.asList("Homer", "homer", "Bart", "Lisa"));
-        Set<String> set2 = new HashSet<>(Arrays.asList("Homer", "Wayland", ""));
+        List<String> list1 = Arrays.asList("Homer", "homer", "Bart", "Lisa");
+        List<String> list2 = Arrays.asList("Homer", "Wayland", "");
 
-        BcCompareMain.runCompare("List 1", set1, "List 2", set2);
+
+        BcCompareMain.runCompare("List 1", list1, "List 2", list2);
     }
 
 

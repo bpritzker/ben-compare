@@ -8,15 +8,15 @@
 
   <groupId>net.benp</groupId>
   <artifactId>bencompare</artifactId>
-  <version>1.2.5</version>
+  <version>1.2.7</version>
 
 
-  <!-- I set the Target at 1.8 because there is no reason to make it higher -->
+  <!-- I set the Target at 1.11 because there is no reason to make it higher -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.11</maven.compiler.source>
+    <maven.compiler.target>1.11</maven.compiler.target>
   </properties>
 
 

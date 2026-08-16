@@ -42,7 +42,7 @@ public class BcCompareMain {
         BcCompareMain main = new BcCompareMain();
         BcConfig config = BcConfig.buildDefaultConfig();
         config.setReportConfig(null);
-        return main.run(null, collection1, null, collection2, config);
+        return main.run("First", collection1, "Second", collection2, config);
     }
 
 
@@ -110,8 +110,8 @@ public class BcCompareMain {
             String collectionName2, Collection<String> collection2,
             BcConfig inConfig) {
 
-        String cleanCollectionName1 = BcUtils.defaultNotEmptyValue(collectionName1, "List 1");
-        String cleanCollectionName2 = BcUtils.defaultNotEmptyValue(collectionName2, "List 2");
+        String cleanCollectionName1 = BcUtils.defaultNotEmptyValue(collectionName1, "First");
+        String cleanCollectionName2 = BcUtils.defaultNotEmptyValue(collectionName2, "Second");
 
         // The program does allow null and empty. No reason to error when we can just generate the reports.
         Collection<String> cleanCollection1 = collection1;
@@ -157,8 +157,11 @@ public class BcCompareMain {
 
 
     protected void reportResults(String collectionName1, String collectionName2, BcCompareResult compareResults, BcConfig config) {
+        FIXME:
+
         if (config.getReportConfig() == null) {
             logger.fine("BcCompcare.ReportConfig is 'null', skipping reporting.");
+            return;
         }
         BcReporter reporter = new BcReporter(config.getReportConfig());
         reporter.defaultReport(collectionName1, collectionName2, compareResults, config.getCompareConfig());

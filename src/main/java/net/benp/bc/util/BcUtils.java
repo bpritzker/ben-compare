@@ -18,7 +18,6 @@ public class BcUtils {
         if (BcUtils.isBlank(inString)) {
             return defaultValue;
         }
-
         return inString;
     }
 

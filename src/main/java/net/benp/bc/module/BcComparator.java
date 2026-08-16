@@ -7,8 +7,7 @@ import net.benp.bc.util.BcUtils;
 import java.util.*;
 
 /**
- * This class is used to take all the data in the 2 Collections and
- * normalized and do the comparisons.
+ * This class is used to take all the data in the 2 Collections and normalized and do the comparisons.
  * </br>
  * NOTE: After a lot of thought I decided to handle null/blanks separately since they are kind of unique.
  *
@@ -60,7 +59,6 @@ public class BcComparator {
         result.setBlankValueToCount2(normalizedResult2.getBlankValueToCount());
 
         return result;
-
     }
 
     protected NormalizedResult normalizeCollection(Collection<String> collection) {

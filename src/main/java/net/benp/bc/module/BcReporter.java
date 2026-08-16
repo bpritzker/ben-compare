@@ -27,12 +27,22 @@ public class BcReporter {
 
     public void defaultReport(String collectionName1, String collectionName2, BcCompareResult compareResults, BcCompareConfig compareConfig) {
 
+        List<String> reportData = buildReportData(collectionName1, collectionName2, compareResults, compareConfig);
+
+
+        if (reportConfig.isPrintReportToStdOut()) {
+            printToConsoleReportData(reportData);
+        }
+
+
+        if (reportConfig == null) {
+            return;
+        }
+
         deleteExistingReports(reportConfig.getReportDir(), reportConfig.isDeleteExistingReports());
 
-        List<String> reportData = buildReportData(collectionName1, collectionName2, compareResults, compareConfig);
         String reportDirStr = reportConfig.getReportDir();
 
-        printToConsoleReportData(reportData);
 
         if (reportDirStr == null) {
             logger.fine("File Reporting is disabled. To enable, set the ReportDirStr on the Report Config.");

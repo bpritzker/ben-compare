@@ -10,6 +10,8 @@ public class BcReportConfig {
 
     // You will want to set this most of the time!
     private String reportDir = null;
+    private boolean printReportToStdOut = true;
+
 
 
     // The below values control if the VALUES of the Collection will be displayed in the console.
@@ -48,6 +50,13 @@ public class BcReportConfig {
         this.reportDir = reportDir;
     }
 
+    public boolean isPrintReportToStdOut() {
+        return printReportToStdOut;
+    }
+
+    public void setPrintReportToStdOut(boolean printReportToStdOut) {
+        this.printReportToStdOut = printReportToStdOut;
+    }
 
     public char getLineSeparatorChar() {
         return lineSeparatorChar;
